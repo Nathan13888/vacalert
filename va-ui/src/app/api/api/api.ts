@@ -1,9 +1,13 @@
 export * from './assessmentController.service';
 import { AssessmentControllerService } from './assessmentController.service';
+export * from './locationController.service';
+import { LocationControllerService } from './locationController.service';
 export * from './pingController.service';
 import { PingControllerService } from './pingController.service';
+export * from './subscriptionController.service';
+import { SubscriptionControllerService } from './subscriptionController.service';
 export * from './vaccinationController.service';
 import { VaccinationControllerService } from './vaccinationController.service';
 export * from './vonageController.service';
 import { VonageControllerService } from './vonageController.service';
-export const APIS = [AssessmentControllerService, PingControllerService, VaccinationControllerService, VonageControllerService];
+export const APIS = [AssessmentControllerService, LocationControllerService, PingControllerService, SubscriptionControllerService, VaccinationControllerService, VonageControllerService];

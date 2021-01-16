@@ -3,7 +3,9 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 import { AssessmentControllerService } from './api/assessmentController.service';
+import { LocationControllerService } from './api/locationController.service';
 import { PingControllerService } from './api/pingController.service';
+import { SubscriptionControllerService } from './api/subscriptionController.service';
 import { VaccinationControllerService } from './api/vaccinationController.service';
 import { VonageControllerService } from './api/vonageController.service';
 
