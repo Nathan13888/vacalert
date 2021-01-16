@@ -31,7 +31,8 @@
 }
 
 :host ::ng-deep .swiper-slide .text {
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 450;
   text-shadow: 2px 2px #420909;
   max-width: 90%;
 }

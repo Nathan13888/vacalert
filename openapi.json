@@ -7,6 +7,37 @@
     "contact": {}
   },
   "paths": {
+    "/assessment/result": {
+      "post": {
+        "x-controller-name": "AssessmentController",
+        "x-operation-name": "getResult",
+        "tags": [
+          "AssessmentController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResult"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProfile"
+              }
+            }
+          }
+        },
+        "operationId": "AssessmentController.getResult"
+      }
+    },
     "/ping": {
       "get": {
         "x-controller-name": "PingController",
@@ -28,6 +59,312 @@
         },
         "operationId": "PingController.ping"
       }
+    },
+    "/vaccinations/count": {
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "count",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Vaccination.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Vaccination>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.count"
+      }
+    },
+    "/vaccinations/{id}": {
+      "put": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Vaccination"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "VaccinationController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "VaccinationController.updateById"
+      },
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "findById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccinationWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.findById"
+      },
+      "delete": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "VaccinationController.deleteById"
+      }
+    },
+    "/vaccinations": {
+      "post": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "create",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewVaccination"
+              }
+            }
+          }
+        },
+        "operationId": "VaccinationController.create"
+      },
+      "patch": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Vaccination.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Vaccination>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationPartial"
+              }
+            }
+          }
+        },
+        "operationId": "VaccinationController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "find",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Vaccination model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccinationWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.find"
+      }
+    },
+    "/vonage/sms/send": {
+      "post": {
+        "x-controller-name": "VonageController",
+        "x-operation-name": "smsSend",
+        "tags": [
+          "VonageController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully sent"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "operationId": "VonageController.smsSend"
+      }
     }
   },
   "servers": [
@@ -37,6 +374,172 @@
   ],
   "components": {
     "schemas": {
+      "ProfileResult": {
+        "title": "ProfileResult",
+        "type": "object",
+        "properties": {
+          "stage": {
+            "type": "string"
+          },
+          "fromDate": {
+            "type": "string"
+          },
+          "toDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "stage"
+        ],
+        "additionalProperties": false
+      },
+      "UserProfile": {
+        "title": "UserProfile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "homeCare": {
+            "type": "boolean"
+          },
+          "healthCare": {
+            "type": "boolean"
+          },
+          "frontline": {
+            "type": "boolean"
+          },
+          "indigenous": {
+            "type": "boolean"
+          },
+          "congregated": {
+            "type": "boolean"
+          },
+          "essential": {
+            "type": "boolean"
+          },
+          "pregnant": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "province",
+          "age"
+        ],
+        "additionalProperties": false
+      },
+      "Vaccination": {
+        "title": "Vaccination",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewVaccination": {
+        "title": "NewVaccination",
+        "type": "object",
+        "description": "(tsType: Omit<Vaccination, 'id'>, schemaOptions: { title: 'NewVaccination', exclude: [ 'id' ] })",
+        "properties": {
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Vaccination, 'id'>"
+      },
+      "VaccinationWithRelations": {
+        "title": "VaccinationWithRelations",
+        "type": "object",
+        "description": "(tsType: VaccinationWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "VaccinationWithRelations"
+      },
+      "VaccinationPartial": {
+        "title": "VaccinationPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Vaccination>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Vaccination>"
+      },
       "PingResponse": {
         "type": "object",
         "title": "PingResponse",
@@ -60,6 +563,179 @@
             "additionalProperties": true
           }
         }
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Vaccination.Filter": {
+        "type": "object",
+        "title": "Vaccination.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "province": {
+                    "type": "boolean"
+                  },
+                  "population": {
+                    "type": "boolean"
+                  },
+                  "firstDoses": {
+                    "type": "boolean"
+                  },
+                  "secondDoses": {
+                    "type": "boolean"
+                  },
+                  "received": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "province",
+                    "population",
+                    "firstDoses",
+                    "secondDoses",
+                    "received"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Vaccination.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Vaccination>"
+      },
+      "Vaccination.Filter1": {
+        "type": "object",
+        "title": "Vaccination.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Vaccination.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "province": {
+                    "type": "boolean"
+                  },
+                  "population": {
+                    "type": "boolean"
+                  },
+                  "firstDoses": {
+                    "type": "boolean"
+                  },
+                  "secondDoses": {
+                    "type": "boolean"
+                  },
+                  "received": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "province",
+                    "population",
+                    "firstDoses",
+                    "secondDoses",
+                    "received"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Vaccination.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Vaccination>"
       }
     }
   }

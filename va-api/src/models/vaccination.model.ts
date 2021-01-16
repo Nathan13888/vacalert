@@ -13,14 +13,55 @@ export class Vaccination extends Entity {
   @property({
     type: 'string',
   })
-  province?: string;
+  province: string;
 
   @property({
     type: 'number',
+    scale: 0,
+    postgresql: {
+      dataType: 'integer',
+    },
   })
-  population?: number;
+  population: number;
 
-  //TODO
+  @property({
+    type: 'number',
+    scale: 0,
+    postgresql: {
+      dataType: 'integer',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: 0,
+      nullable: 'NO',
+    },
+  })
+  firstDoses: number;
+
+  @property({
+    type: 'number',
+    scale: 0,
+    postgresql: {
+      dataType: 'integer',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: 0,
+      nullable: 'NO',
+    },
+  })
+  secondDoses: number;
+
+  @property({
+    type: 'number',
+    scale: 0,
+    postgresql: {
+      dataType: 'integer',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: 0,
+      nullable: 'NO',
+    },
+  })
+  received: number;
 
   constructor(data?: Partial<Vaccination>) {
     super(data);

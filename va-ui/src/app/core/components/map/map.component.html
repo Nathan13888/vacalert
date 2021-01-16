@@ -1,4 +1,8 @@
-<div class="container content-with-toolbar">
+<div
+  class="container content-with-toolbar"
+  [appPopover]="info"
+  #popoverInfo="popover"
+>
   <div class="mat-h2">Doses administered in Canada</div>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -14,19 +18,24 @@
       [attr.d]="location.path"
       class="map-location"
       (click)="onClickLocation(location)"
-    >
-      <!-- mouseover='onMouseOver($event, location)'
-    mouseout='onMouseOver($event, location)'
-     mouseover='onMouseOver($event, location)' -->
-    </path>
+      [appHover]="popoverInfo"
+      (hover)="onHoverLocation(location, $event)"
+    ></path>
     <text
       *ngFor="let label of labels"
-      text-anchor="start"
+      text-anchor="middle"
       [attr.x]="label.x"
       [attr.y]="label.y"
       fill="red"
+      [appHover]="popoverInfo"
+      (hover)="onHoverLocation(label.location, $event)"
     >
       {{ label.text }}
     </text>
   </svg>
 </div>
+
+<ng-template #info>
+  <app-map-popover *ngIf="selectedItem" class="popover" [item]="selectedItem">
+  </app-map-popover>
+</ng-template>

@@ -19,6 +19,7 @@ import { MapComponent } from './components/map/map.component';
 import { QuestionaireComponent } from './components/questionaire/questionaire.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { CoreRoutingModule } from './core-routing.module';
+import { MapPopoverComponent } from './components/map-popover/map-popover.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CoreRoutingModule } from './core-routing.module';
     HomeComponent,
     MapComponent,
     SubscribeComponent,
+    MapPopoverComponent,
   ],
   imports: [
     BrowserAnimationsModule,

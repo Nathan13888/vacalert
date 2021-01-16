@@ -14,7 +14,7 @@ import {
 } from '@angular/material/button-toggle';
 import { BaseComponent } from '../base/base.component';
 
-export class TriStateToggleChange {
+export class BooleanToggleChange {
   constructor(
     public source: BooleanToggleComponent,
     public value: boolean | undefined
@@ -37,11 +37,11 @@ export class BooleanToggleComponent extends BaseComponent implements OnChanges {
 
   disabled: boolean;
 
-  private onChange: () => void;
+  private onChange: (value: boolean) => {};
   private onTouched: () => void;
 
   @Output()
-  change: EventEmitter<TriStateToggleChange> = new EventEmitter<TriStateToggleChange>();
+  change: EventEmitter<BooleanToggleChange> = new EventEmitter<BooleanToggleChange>();
 
   @ViewChild(MatButtonToggleGroup)
   matButtonToggleGroup: MatButtonToggleGroup;
@@ -52,15 +52,10 @@ export class BooleanToggleComponent extends BaseComponent implements OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value) {
-      this.updateView(changes.value.currentValue);
-    }
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   writeValue(value: any) {
     this.value = value;
-    this.matButtonToggleGroup.value = value;
   }
 
   setDisabledState(disabled: boolean) {
@@ -75,34 +70,12 @@ export class BooleanToggleComponent extends BaseComponent implements OnChanges {
     this.onTouched = fn;
   }
 
-  private updateView(value?: boolean) {
-    this.matButtonToggleGroup.value = value;
-  }
-
   onToggleGroupChange(e: MatButtonToggleChange) {
-    console.log('onToggleGroupChange :>> ', e);
-    // let value: boolean[] = e.value;
-    // if (value.length > 1) {
-    //   value = [value[1]];
-    //   this.matButtonToggleGroup.value = value;
-    // }
-    // const newValue = this.convertArrayToBoolean(value);
-    // if (this.value !== newValue) {
-    //   this.value = newValue;
-    //   if (this.change)
-    //     this.change.emit(new TriStateToggleChange(this, newValue));
-    // }
+    this.value = e.value;
+    if (this.onChange) {
+      this.onChange(this.value);
+    }
   }
 
-  onClickButton(value: boolean) {
-    console.log('onClickButton :>> ', value);
-  }
-
-  // private convertArrayToBoolean(arr: boolean[]) {
-  //   return arr.length === 0 ? undefined : arr[0];
-  // }
-
-  // private convertBooleanToArray(value?: boolean) {
-  //   return value === undefined || value === null ? [] : [value];
-  // }
+  onClickButton(value: boolean) {}
 }

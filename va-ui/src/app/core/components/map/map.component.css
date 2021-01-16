@@ -4,8 +4,9 @@
 }
 
 svg.map {
-  fill: rgb(201, 224, 240);
+  fill: #a1d99b;
   cursor: pointer;
+  max-width: 600px;
 }
 
 .map {
@@ -13,7 +14,7 @@ svg.map {
 }
 
 .map-location:hover {
-  fill: #a1d99b;
+  fill: rgb(201, 224, 240);
 }
 
 :host ::ng-deep svg {
@@ -21,4 +22,9 @@ svg.map {
   stroke-width: 1;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.popover {
+  z-index: 9001;
+  background-color: #ccc;
 }

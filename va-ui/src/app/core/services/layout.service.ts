@@ -57,7 +57,6 @@ export class LayoutService implements OnDestroy {
         handset.matches
           ? tb.classList.remove(indentStyle)
           : toolbarContainer.nativeElement.classList.add(indentStyle);
-        // console.log('tb.classList :>> ', tb.classList);
       });
   }
 

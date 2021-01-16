@@ -9,13 +9,13 @@
         #stepper
         (selectionChange)="onSelectionChange($event)"
       >
-        <mat-step>
+        <mat-step [stepControl]="form.controls.province">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <div>Which province do you live in?</div>
             <mat-form-field style="width: 200px">
               <select
                 matNativeControl
-                [formControl]="form.controls.homeCare"
+                [formControl]="form.controls.province"
                 required
               >
                 <option>Select a Province</option>
@@ -36,10 +36,15 @@
             </mat-form-field>
           </div>
           <ng-container
-            *ngTemplateOutlet="navigation; context: { step: 'first' }"
+            *ngTemplateOutlet="
+              navigation;
+              context: {
+                step: 'first'
+              }
+            "
           ></ng-container>
         </mat-step>
-        <mat-step>
+        <mat-step [stepControl]="form.controls.age">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <div>What is your age?</div>
             <mat-form-field class="age-field">
@@ -52,18 +57,54 @@
                 autocomplete="off"
                 [formControl]="form.controls.age"
                 (input)="input.value = input.value.slice(0, input.maxLength)"
+                (keydown.enter)="goForward(stepper)"
               />
             </mat-form-field>
           </div>
           <ng-container *ngTemplateOutlet="navigation"></ng-container>
         </mat-step>
         <mat-step>
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <div>Are you a Senior Home resident or staff?</div>
-            <app-boolean-toggle></app-boolean-toggle>
+          <div *ngFor="let q of closedQuestions; let i = index">
+            <div class="spacing"></div>
+            <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
+            <div
+              class="spacing"
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <div>{{ q.text }}</div>
+              <img
+                *ngIf="q.image"
+                class="image"
+                [src]="'/assets/images/' + q.image"
+              />
+              <div class="spacer"></div>
+              <app-boolean-toggle
+                [formControl]="q.control"
+              ></app-boolean-toggle>
+            </div>
           </div>
-          <ng-template [ngTemplateOutlet]="navigation"></ng-template>
+          <ng-container *ngTemplateOutlet="navigation"></ng-container>
         </mat-step>
+        <!-- <ng-container
+              *ngTemplateOutlet="
+                toggle;
+                context: {
+                  formControl: form.controls.homeCare,
+                  onClick: onClickToggle(e),
+                  onChange: onChangeToggle(e)
+                }
+              "
+            ></ng-container> -->
+        <!-- <ng-container
+            *ngTemplateOutlet="
+              navigation;
+              context: {
+                disableNext: form.controls.homeCare.invalid
+              }
+            "
+          ></ng-container> -->
         <!-- <mat-step [stepControl]="form.controls.pregnant">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <span class="img-pregnant illustration"> </span>
@@ -72,67 +113,26 @@
           </div>
           <ng-container *ngTemplateOutlet="navigation"></ng-container>
         </mat-step> -->
-        <mat-step [stepControl]="form.controls.healthcare" state="chat">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <!-- <span class="img-health illustration"> </span> -->
-            <img src="/assets/images/health.png" />
-            <div>Are you a health care worker?</div>
-            <app-boolean-toggle></app-boolean-toggle>
-          </div>
-          <ng-template [ngTemplateOutlet]="navigation"></ng-template>
-        </mat-step>
-        <mat-step [stepControl]="form.controls.indigenous">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <div>Are you an adult in Indigenous communities?</div>
-            <app-boolean-toggle></app-boolean-toggle>
-          </div>
-          <ng-container *ngTemplateOutlet="navigation"></ng-container>
-        </mat-step>
-        <mat-step [stepControl]="form.controls.indigenous">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <div>
-              Are you a resident or staff of a shared living setting, such as
-              homeless shelters, correctional facilities and housing for migrant
-              worker?
-            </div>
-            <app-boolean-toggle></app-boolean-toggle>
-          </div>
-          <ng-container *ngTemplateOutlet="navigation"></ng-container>
-        </mat-step>
-        <mat-step [stepControl]="form.controls.indigenous">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <div>
-              Are you an essential worker who faces additional risks to perform
-              services for the functionality of society?
-            </div>
-            <app-boolean-toggle></app-boolean-toggle>
-          </div>
-          <ng-container *ngTemplateOutlet="navigation"></ng-container>
-        </mat-step>
-        <mat-step>
+        <!-- <span class="img-health illustration"> </span> -->
+
+        <mat-step [completed]="true">
           <ng-template matStepLabel>Done</ng-template>
           <p>
             According to the guidelines in your province, you are in Stage 2 of
             the vaccine rollout. You should expect to get immunized between July
-            and September 2021. Click <a routerLink="/subscribe">here</a> to
-            subscribe to the latest Vaccine alerts.
+            and September 2021. Click
+            <a class="underline" routerLink="/subscribe">here</a> to subscribe
+            to Vaccine alerts when it becomes available to you.
           </p>
           <ng-container
             *ngTemplateOutlet="navigation; context: { step: 'last' }"
           ></ng-container>
         </mat-step>
 
-        <ng-template matStepperIcon="phone">
-          <mat-icon>call_end</mat-icon>
-        </ng-template>
-        <ng-template matStepperIcon="chat">
-          <mat-icon>forum</mat-icon>
-        </ng-template>
-
-        <ng-template #navigation let-step="step">
-          <div style="margin-top: 10px">
+        <ng-template #navigation let-step="step" let-disableNext="disableNext">
+          <div style="margin-top: 5px">
             <mat-divider inset="true"></mat-divider>
-            <div class="button-row" style="margin-top: 10px">
+            <div fxLayout="row" class="button-row" style="margin-top: 5px">
               <button
                 *ngIf="step !== 'first'"
                 mat-stroked-button
@@ -141,11 +141,13 @@
               >
                 <mat-icon>navigate_before</mat-icon>Back
               </button>
+              <div class="spacer"></div>
               <button
                 *ngIf="step !== 'last'"
                 mat-stroked-button
                 type="button"
-                matStepperNext
+                [disabled]="disableNext"
+                (click)="goForward(stepper)"
               >
                 Next
                 <mat-icon>navigate_next</mat-icon>
@@ -161,8 +163,33 @@
             </div>
           </div>
         </ng-template>
+
+        <!-- <ng-template
+          #toggle
+          let-formControl="formControl"
+          let-onClick="onClick"
+          let-onChange="onChange"
+        >
+          <mat-button-toggle-group
+            [formControl]="formControl"
+            (change)="onChange($event)"
+          >
+            <mat-button-toggle [value]="true" (click)="onClick(true)">
+              <div>Yes</div>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="false" (click)="onClick(false)">
+              <div>No</div>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </ng-template> -->
       </mat-horizontal-stepper>
     </form>
+    <div style="padding: 5px">
+      <div *ngIf="form.controls.age.hasError('underage')">
+        Unfortunately Covid-19 Vaccines have not been approved for children
+        under 16.
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
 <mat-card class="container" *ngIf="result">

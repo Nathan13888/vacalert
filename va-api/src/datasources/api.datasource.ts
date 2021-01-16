@@ -4,7 +4,7 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'Api',
   connector: 'postgresql',
-  url: 'postgres://va@192.168.10.69:26257/va',
+  url: 'postgres://va:password@192.168.10.69:26257/va',
 };
 
 // Observe application's life cycle to disconnect the datasource when

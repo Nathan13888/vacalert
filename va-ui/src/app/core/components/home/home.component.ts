@@ -1,5 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { AssessmentControllerService } from '@app/api/api/assessmentController.service';
+import { UserProfile } from '@app/api/model/userProfile';
 import { NavToolbarService } from '@app/core/services/nav-toolbar.service';
+import { BaseComponent } from '@app/shared/components/base/base.component';
+import { takeUntil } from 'rxjs/operators';
 import SwiperCore, {
   A11y,
   Autoplay,
@@ -50,7 +54,7 @@ SwiperCore.use([
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends BaseComponent {
   config: SwiperOptions = {
     speed: 600,
     parallax: true,
@@ -65,15 +69,35 @@ export class HomeComponent implements OnInit {
     updateOnWindowResize: true,
     spaceBetween: 50,
     centeredSlides: true,
+    autoplay: {
+      delay: 20000,
+      disableOnInteraction: false,
+    },
   };
   @ViewChild(SwiperComponent) swiper?: SwiperComponent;
 
   parallax = -100;
 
-  constructor(private toolbarService: NavToolbarService) {}
+  constructor(
+    private toolbarService: NavToolbarService,
+    private assessmentService: AssessmentControllerService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     const toolbar = this.toolbarService.defaultInstance();
     toolbar.enableHome = false;
+  }
+
+  onCompletedQuestions(userProfile: UserProfile) {
+    this.assessmentService
+      .assessmentControllerGetResult(userProfile)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((result) => {});
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 }

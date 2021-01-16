@@ -11,6 +11,8 @@ import { SwiperModule } from 'swiper/angular';
 import { BooleanToggleComponent } from './components/boolean-toggle/boolean-toggle.component';
 import { CelebrateComponent } from './components/celebrate/celebrate.component';
 import { EllipsisDirective } from './directives/ellipsis.directive';
+import { HoverDirective } from './directives/hover.directive';
+import { PopoverDirective } from './directives/popover.directive';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { EllipsisDirective } from './directives/ellipsis.directive';
     EllipsisDirective,
     CelebrateComponent,
     BooleanToggleComponent,
+    HoverDirective,
+    PopoverDirective,
   ],
   exports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { EllipsisDirective } from './directives/ellipsis.directive';
     SwiperModule,
     NgSlimScrollModule,
     BooleanToggleComponent,
+    HoverDirective,
+    PopoverDirective,
   ],
 })
 export class SharedModule {}
