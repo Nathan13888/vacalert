@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="mat-title padding">
+    Contact a vaccination centre near you to make an appointment.
+  </div>
+  <div class="container" *ngIf="locations" fxLayout="column" fxLayoutGap="5px">
+    <app-location-info
+      *ngFor="let loc of locations"
+      [location]="loc"
+    ></app-location-info>
+  </div>
+</div>

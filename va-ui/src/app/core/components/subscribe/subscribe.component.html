@@ -15,10 +15,6 @@
           placeholder="Email"
           formControlName="email"
           required
-          [ngClass]="{
-            'is-danger':
-              this.emailFormSubmitted && this.emailForm.controls.email.errors
-          }"
         />
         <!-- TODO: Add icon envelope -->
         <!-- <span class="icon is-small is-left">
@@ -47,6 +43,24 @@
   <button type="submit">Get the latest updates via email!</button>
 </form>
 
-<button (click)="this.subscribeSMSUpdates()">
-  Subscribe to SMS (powered by Vonage)
-</button>
+<form [formGroup]="smsForm" (ngSubmit)="this.subscribeSMSUpdates()">
+  <div class="column">
+    <div class="field">
+      <label class="label">Phone Number</label>
+      <input
+        type="tel"
+        class="input"
+        placeholder=""
+        formControlName="phoneNumber"
+        required
+      />
+      <ng-template
+        [ngIf]="this.smsFormSubmitted && this.smsForm.controls.email.errors"
+      >
+        <p class="help is-danger">Invalid input.</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <button type="submit">Subscribe to SMS (powered by Vonage)</button>
+</form>

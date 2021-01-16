@@ -20,6 +20,9 @@ import { QuestionaireComponent } from './components/questionaire/questionaire.co
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { MapPopoverComponent } from './components/map-popover/map-popover.component';
+import { LocatorComponent } from './components/locator/locator.component';
+import { AppointmentComponent } from './components/appointment/appointment.component';
+import { LocationInfoComponent } from './components/location-info/location-info.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { MapPopoverComponent } from './components/map-popover/map-popover.compon
     MapComponent,
     SubscribeComponent,
     MapPopoverComponent,
+    LocatorComponent,
+    AppointmentComponent,
+    LocationInfoComponent,
   ],
   imports: [
     BrowserAnimationsModule,

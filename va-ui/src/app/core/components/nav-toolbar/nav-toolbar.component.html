@@ -68,10 +68,6 @@
 
     <span class="spacer"> </span>
 
-    <a *ngIf="enableMap" mat-icon-button routerLink="/map" matTooltip="Map">
-      <mat-icon>map</mat-icon>
-    </a>
-
     <a
       *ngIf="enableSubscribe"
       mat-icon-button
@@ -79,6 +75,33 @@
       matTooltip="Subscribe"
     >
       <mat-icon>subscriptions</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableMap && !handset.matches"
+      mat-icon-button
+      routerLink="/map"
+      matTooltip="Map"
+    >
+      <mat-icon>map</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableLocator && !handset.matches"
+      mat-icon-button
+      routerLink="/locator"
+      matTooltip="Locator"
+    >
+      <mat-icon>location_on</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableAppointment && !handset.matches"
+      mat-icon-button
+      routerLink="/appointment"
+      matTooltip="Appointment"
+    >
+      <mat-icon>schedule</mat-icon>
     </a>
 
     <a

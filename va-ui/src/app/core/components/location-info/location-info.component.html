@@ -1,0 +1,21 @@
+<mat-card *ngIf="location">
+  <mat-card-header>
+    <mat-icon mat-card-avatar color="primary">location_on</mat-icon>
+    <mat-card-title> {{ location.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="margin-left: 30px">
+      <div class="mat-body">{{ location.address }}</div>
+      <div class="mat-body">{{ formatter.formatPhone(location.phone) }}</div>
+      <a
+        class="mat-body-2"
+        target="_blank"
+        [href]="location.url"
+        rel="noopener noreferrer nofollow"
+      >
+        <span class="underline">Map</span>
+        <mat-icon>launch</mat-icon>
+      </a>
+    </div>
+  </mat-card-content>
+</mat-card>

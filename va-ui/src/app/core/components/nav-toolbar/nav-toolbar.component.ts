@@ -31,6 +31,12 @@ export class NavToolbarComponent implements OnInit {
   enableSubscribe: boolean;
 
   @Input()
+  enableLocator: boolean;
+
+  @Input()
+  enableAppointment: boolean;
+
+  @Input()
   enableBack: boolean;
 
   @Input()
@@ -90,6 +96,8 @@ export class NavToolbarComponent implements OnInit {
     this.enableHome = true;
     this.enableMap = true;
     this.enableSubscribe = true;
+    this.enableLocator = true;
+    this.enableAppointment = true;
     this.enableBack = true;
     this.enableForward = false;
     this.enableSearch = true;

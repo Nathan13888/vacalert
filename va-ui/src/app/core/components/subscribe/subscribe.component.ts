@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SwPush, SwUpdate } from '@angular/service-worker';
-import { VonageControllerService } from '@app/api/api/vonageController.service';
+import { SubscriptionControllerService } from '@app/api';
 import { NavToolbarService } from '@app/core/services/nav-toolbar.service';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
@@ -14,18 +14,20 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./subscribe.component.css'],
 })
 export class SubscribeComponent implements OnInit {
-  displayToken: string;
-  phoneNumber: string;
 
   emailFormSubmitted: boolean;
   emailFormSuccess: boolean;
   emailForm: FormGroup;
 
+  smsFormSubmitted: boolean;
+  smsFormSuccess: boolean;
+  smsForm: FormGroup;
+
   constructor(
     private toolbarService: NavToolbarService,
     private swUpdate: SwUpdate,
     private swPush: SwPush,
-    private vonageController: VonageControllerService,
+    private subscriptionControllerService: SubscriptionControllerService,
     private formBuilder: FormBuilder,
     ) {
       this.swUpdate.available.subscribe(_ => this.swUpdate.activateUpdate().then(() => {
@@ -43,6 +45,12 @@ export class SubscribeComponent implements OnInit {
       this.emailForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]],
       });
+
+      this.smsFormSubmitted = false;
+      this.smsFormSuccess = true;
+      this.smsForm = this.formBuilder.group({
+        phoneNumber: ['', [Validators.required]],
+      });
     }
 
   ngOnInit(): void {
@@ -54,7 +62,17 @@ export class SubscribeComponent implements OnInit {
     console.log('Requesting browser notification permissions');
     const messaging = firebase.messaging();
     messaging.requestPermission()
-      .then(() => messaging.getToken().then(token => this.displayToken = token))
+      .then(() => messaging.getToken().then(token => {
+        console.log('Saving browser subscription request');
+        this.subscriptionControllerService.subscriptionControllerSubscribeBrowserNotifications({
+          deviceToken: token
+        })
+          .subscribe((res) => {
+            console.log('Successfully subscribed to browser notification!');
+          }, (err) => {
+            console.error('Failed to subscribe to browser notification!', err);
+          });
+      }))
       .catch(err => {
         console.error('Unable to get permission to notify.', err);
       });
@@ -67,11 +85,27 @@ export class SubscribeComponent implements OnInit {
         this.emailFormSuccess = false;
         return;
     }
-
+    console.log(this.emailForm.controls.email.value);
+    this.subscriptionControllerService.subscriptionControllerSubscribeEmail({
+      email: this.emailForm.controls.email.value,
+    })
+      .subscribe((res) => {
+        console.log('Successfully subscribed to email notification!');
+      }, (err) => {
+        console.error('Failed to subscribe to email notification!', err);
+      });
   }
 
   subscribeSMSUpdates(): void {
     console.log('Subscribing to Vonage SMS');
-    this.vonageController.vonageControllerSmsSubscribe(this.phoneNumber);
+    console.log(this.smsForm.controls.phoneNumber.value);
+    this.subscriptionControllerService.subscriptionControllerSubscribeSMS({
+      phoneNumber: this.smsForm.controls.phoneNumber.value,
+    })
+      .subscribe((res) => {
+        console.log('Successfully subscribed to sms notification!');
+      }, (err) => {
+        console.error('Failed to subscribe to sms notification!', err);
+      });
   }
 }

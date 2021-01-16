@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppointmentComponent } from './core/components/appointment/appointment.component';
 import { HomeComponent } from './core/components/home/home.component';
+import { LocatorComponent } from './core/components/locator/locator.component';
 import { MapComponent } from './core/components/map/map.component';
 import { NavComponent } from './core/components/nav/nav.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
@@ -27,6 +29,14 @@ const routes: Routes = [
       {
         path: 'subscribe',
         component: SubscribeComponent,
+      },
+      {
+        path: 'locator',
+        component: LocatorComponent,
+      },
+      {
+        path: 'appointment',
+        component: AppointmentComponent,
       },
     ],
   },

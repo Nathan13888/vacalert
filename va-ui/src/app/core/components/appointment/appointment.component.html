@@ -1,0 +1,17 @@
+<div class="padding" fxLayout="column" fxLayoutGap="5px">
+  <mat-card *ngIf="appointmentTime">
+    <mat-card-content>
+      <div class="mat-h2">
+        You have an appointment to take the first dose of Covid vaccine on
+        <span style="font-weight: 600">
+          {{ formatter.formatDateTime(appointmentTime) }}</span
+        >.
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <app-location-info *ngIf="loc" [location]="loc"></app-location-info>
+
+  <div>
+    <button mat-raised-button color="warn">Set Reminder</button>
+  </div>
+</div>
