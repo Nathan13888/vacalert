@@ -5,6 +5,14 @@ export interface Appointment {
   time?: string;
   locationId?: string;
   customLocation?: string;
+  dose?: number;
+  submitted?: boolean;
+}
+
+export interface AlertSubscription {
+  webEnabled?: boolean;
+  smsEnabled?: boolean;
+  emailEnabled?: boolean;
 }
 
 @Injectable({
@@ -13,7 +21,9 @@ export interface Appointment {
 export class AppStateService {
   userProfile: UserProfile;
 
-  appointment: Appointment = {};
+  appointment: Appointment;
+
+  alertSubscription: AlertSubscription = {};
 
   constructor() {}
 }

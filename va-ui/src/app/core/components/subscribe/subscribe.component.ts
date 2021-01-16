@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,6 +7,10 @@ import {
 } from '@angular/forms';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { SubscriptionControllerService } from '@app/api';
+import {
+  AlertSubscription,
+  AppStateService,
+} from '@app/core/services/app-state.service';
 import { NavToolbarService } from '@app/core/services/nav-toolbar.service';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
@@ -17,7 +21,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './subscribe.component.html',
   styleUrls: ['./subscribe.component.css'],
 })
-export class SubscribeComponent implements OnInit {
+export class SubscribeComponent implements OnInit, OnDestroy {
   emailFormSubmitted: boolean;
   emailFormSuccess: boolean;
   emailForm: FormGroup;
@@ -26,13 +30,18 @@ export class SubscribeComponent implements OnInit {
   smsFormSuccess: boolean;
   smsForm: FormGroup;
 
+  alertSubscription: AlertSubscription;
+
   constructor(
     private toolbarService: NavToolbarService,
     private swUpdate: SwUpdate,
     private swPush: SwPush,
     private subscriptionControllerService: SubscriptionControllerService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private appStateService: AppStateService
+  ) {
+    this.alertSubscription = this.appStateService.alertSubscription;
+  }
 
   ngOnInit(): void {
     const toolbar = this.toolbarService.defaultInstance();
@@ -106,6 +115,8 @@ export class SubscribeComponent implements OnInit {
       .catch((err) => {
         console.error('Unable to get permission to notify.', err);
       });
+
+    this.alertSubscription.webEnabled = true;
   }
 
   subscribeEmailUpdates(): void {
@@ -122,6 +133,7 @@ export class SubscribeComponent implements OnInit {
       })
       .subscribe(
         (res) => {
+          this.alertSubscription.emailEnabled = true;
           console.log('Successfully subscribed to email notification!');
         },
         (err) => {
@@ -139,11 +151,27 @@ export class SubscribeComponent implements OnInit {
       })
       .subscribe(
         (res) => {
+          this.alertSubscription.smsEnabled = true;
           console.log('Successfully subscribed to sms notification!');
         },
         (err) => {
           console.error('Failed to subscribe to sms notification!', err);
         }
       );
+  }
+
+  onUnsubscribeWeb() {
+    this.alertSubscription.webEnabled = false;
+  }
+
+  onUnsubscribeEmail() {
+    this.alertSubscription.emailEnabled = false;
+  }
+
+  onUnsubscribeSMS() {
+    this.alertSubscription.smsEnabled = false;
+  }
+  ngOnDestroy(): void {
+    this.appStateService.alertSubscription = this.alertSubscription;
   }
 }
