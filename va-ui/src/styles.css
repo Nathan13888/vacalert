@@ -1,0 +1,326 @@
+@import "~swiper/swiper-bundle";
+
+html,
+body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+.wallpaper {
+  background: rgb(253, 251, 251) !important;
+}
+
+pre {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+.material-icons {
+  vertical-align: middle;
+  padding-bottom: 3px;
+}
+
+.mat-slide-toggle .mat-icon[svgIcon] {
+  vertical-align: middle;
+  margin: 0 3px;
+}
+
+a.underline {
+  box-shadow: 0 1px 0 #cccccc;
+  text-decoration: none;
+}
+
+a.underline:hover {
+  box-shadow: 0 1px 0 rgb(85, 26, 139);
+  text-decoration: none;
+}
+
+.mat-toolbar.mat-primary a {
+  color: unset;
+}
+
+a {
+  text-decoration: none;
+}
+
+a,
+.clickable {
+  cursor: pointer;
+}
+
+.non-clickable {
+  cursor: auto;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.margin {
+  margin: 10px;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.large-padding {
+  padding: 24px;
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.button-row button,
+.button-row a,
+.span-row > span,
+.span-row > button,
+.cells > * {
+  margin: 6px !important;
+}
+
+.card-item {
+  padding-bottom: 8px;
+}
+
+.section {
+  padding-top: 10px;
+}
+
+.titlebar {
+  padding: 12px 16px;
+}
+
+mat-icon.mat-card-avatar {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+mat-icon.mat-card-avatar.big {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+}
+
+.mat-icon-button.small {
+  width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+}
+
+.mat-icon-button.small .mat-icon,
+.mat-icon.small {
+  width: 16px !important;
+  height: 16px !important;
+  line-height: 16px !important;
+  font-size: 16px !important;
+}
+
+.mat-icon-button.small .material-icons {
+  font-size: 16px !important;
+}
+
+.form .mat-form-field {
+  margin-right: 6px;
+}
+
+.static-chip {
+  padding: 4px;
+  border-radius: 4px;
+  height: 16px;
+  width: fit-content;
+}
+
+.sticky-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  z-index: 9999;
+}
+
+.toolbar-fixed-height,
+.toolbar-fixed-height .mat-toolbar {
+  height: 64px;
+}
+
+.content-with-toolbar,
+.second-toolbar {
+  margin-top: 65px;
+}
+
+.content-with-double-toolbar {
+  margin-top: 128px;
+}
+
+.toolbar-indent {
+  /* left: 200px !important; */
+  left: 60px !important;
+}
+
+.scroller-loading {
+  padding-bottom: 130px;
+}
+
+.divider {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+}
+
+.gray {
+  color: #a9a9a9 !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field.choice-width .mat-form-field-infix {
+  width: auto;
+  min-width: 3em;
+  padding: 0;
+}
+
+.mat-form-field.choice-width .ql-editor {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.mat-form-field.no-underline .mat-form-field-underline {
+  display: none;
+}
+
+.optgroup-uppercase .mat-optgroup-label {
+  text-transform: uppercase;
+}
+
+mat-nav-list.list-horizontal {
+  padding: 0;
+}
+
+mat-nav-list.list-horizontal .mat-list-item {
+  display: inline-block;
+  height: auto;
+  width: auto;
+}
+
+mat-nav-list .mat-list-item a.disabled {
+  color: #ccc;
+  pointer-events: none;
+  cursor: default;
+}
+
+.dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.icon-left {
+  margin-right: 8px;
+}
+
+mat-divider.toolbar-divider {
+  height: 36px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.select-review-status {
+  min-width: 60px !important;
+}
+
+.snackbar-container {
+  opacity: 0.1;
+  color: white;
+}
+
+.toolbar-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.full-window-popup .mat-dialog-container {
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0px;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: hidden !important;
+}
+
+body.no-cursor * {
+  cursor: none;
+}

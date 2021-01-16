@@ -1,0 +1,74 @@
+<mat-toolbar
+  class="mat-elevation-z1"
+  fxLayoutAlign="start center"
+  fxLayoutGap="10px"
+  *ngIf="layoutService.handset$ | async as handset"
+  ><mat-toolbar-row>
+    <ng-container *ngIf="layoutService.small$ | async as small">
+      <button
+        *ngIf="enableDrawerToggle"
+        mat-icon-button
+        (click)="onSideNavToggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <mat-divider
+        *ngIf="enableDrawerToggle"
+        class="toolbar-divider"
+        [vertical]="true"
+      ></mat-divider>
+
+      <ng-container *ngIf="enableBack">
+        <button
+          mat-icon-button
+          *ngIf="(routerLocationService.canGoBack$ | async).value"
+          [matTooltip]="res.Back"
+          (click)="onBack()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </ng-container>
+
+      <button
+        mat-icon-button
+        *ngIf="enableForward && !handset.matches"
+        [matTooltip]="res.Forward"
+        (click)="onForward()"
+      >
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+
+      <a
+        mat-icon-button
+        routerLink="/"
+        [matTooltip]="res.Home"
+        *ngIf="enableHome && !handset.matches"
+      >
+        <mat-icon>home</mat-icon>
+      </a>
+
+      <div
+        [appEllipsis]
+        *ngIf="heading && !handset.matches"
+        class="toolbar-title"
+        [matTooltip]="heading"
+        #el="ellipsis"
+        [matTooltipDisabled]="!el.outOfBound"
+      >
+        {{ heading }}
+      </div>
+
+      <a
+        *ngIf="enableSettings"
+        mat-icon-button
+        routerLink="/settings"
+        matTooltip="Settings"
+      >
+        <mat-icon>settings_applications</mat-icon>
+      </a>
+
+      <span class="spacer"> </span>
+    </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>

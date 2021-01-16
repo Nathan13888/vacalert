@@ -1,0 +1,28 @@
+<div class="outer mat-elevation-z2">
+  <mat-paginator
+    [length]="length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [hidePageSize]="hidePageSize"
+    (page)="paginationChange($event)"
+  >
+  </mat-paginator>
+
+  <div #goToContainer class="hide">
+    <mat-form-field class="page-number-field">
+      <mat-select
+        [matTooltip]="goToDisabled ? '' : 'Page number'"
+        class="page-select"
+        [(value)]="goTo"
+        (selectionChange)="goToPageChange()"
+        [disabled]="goToDisabled"
+      >
+        <mat-option *ngFor="let pageNumber of pageNumbers" [value]="pageNumber"
+          >{{ pageNumber }}
+        </mat-option></mat-select
+      >
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<mat-sidenav-container
+  class="sidenav-container"
+  *ngIf="layoutService.handset$ | async as handset"
+>
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="handset.matches ? 'dialog' : 'navigation'"
+    [mode]="handset.matches ? 'over' : 'side'"
+    [opened]="!handset.matches"
+  >
+    <mat-toolbar class="toolbar-fixed-height mat-elevation-z1"></mat-toolbar>
+    <mat-nav-list class="wallpaper nav-list" (click)="onSideNavClick()">
+      <a mat-list-item routerLink="/">
+        <mat-icon matListIcon>home</mat-icon>
+        <p matLine>Home</p>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <app-loading-indicator> </app-loading-indicator>
+    <div
+      class="sticky-toolbar toolbar-fixed-height"
+      [class.toolbar-indent]="!handset.matches"
+    >
+      <app-nav-toolbar
+        #toolbar
+        [enableDrawerToggle]="handset.matches"
+        (sideNavToggle)="drawer.toggle()"
+      ></app-nav-toolbar>
+    </div>
+    <main class="wallpaper content content-with-toolbar">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

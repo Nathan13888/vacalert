@@ -1,0 +1,42 @@
+.sidenav-container {
+  min-height: 100vh;
+}
+
+.nav-list {
+  min-height: 100vh;
+}
+
+:host ::ng-deep .mat-drawer-inner-container {
+  overflow: hidden;
+}
+
+.sidenav-content main {
+  /* min-height: 100vh; */
+}
+
+.sidenav {
+  /* width: 200px; */
+  width: 60px;
+  /* box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24); */
+}
+
+.sidenav-content {
+  overflow-y: hidden;
+}
+
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  z-index: 9999;
+}
+
+.toolbar-indent {
+  left: 200px;
+}
+
+.content {
+  position: relative;
+}
