@@ -1,5 +1,52 @@
 <p>Subscribe to Covid-19 Alerts</p>
 <button (click)="this.subscribeBrowserNotifications()">
-  Subscribe to all updates!
+  Subscribe to browser notifications!
 </button>
-<p>Device token: {{ displayToken }}</p>
+<!-- <p>Device token: {{ displayToken }}</p> -->
+
+<form [formGroup]="emailForm" (ngSubmit)="subscribeEmailUpdates()">
+  <div class="column">
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control has-icons-left">
+        <input
+          type="email"
+          class="input"
+          placeholder="Email"
+          formControlName="email"
+          required
+          [ngClass]="{
+            'is-danger':
+              this.emailFormSubmitted && this.emailForm.controls.email.errors
+          }"
+        />
+        <!-- TODO: Add icon envelope -->
+        <!-- <span class="icon is-small is-left">
+          <i class="icon-envelope"></i>
+        </span> -->
+      </div>
+      <ng-template
+        [ngIf]="this.emailFormSubmitted && this.emailForm.controls.email.errors"
+      >
+        <p
+          class="help is-danger"
+          *ngIf="this.emailForm.controls.email.errors.required"
+        >
+          Email is required.
+        </p>
+        <p
+          class="help is-danger"
+          *ngIf="this.emailForm.controls.email.errors.email"
+        >
+          Email is invalid!
+        </p>
+      </ng-template>
+    </div>
+  </div>
+
+  <button type="submit">Get the latest updates via email!</button>
+</form>
+
+<button (click)="this.subscribeSMSUpdates()">
+  Subscribe to SMS (powered by Vonage)
+</button>

@@ -82,7 +82,7 @@ export class QuestionaireComponent extends BaseFormComponent {
 
     this.ageControl = this.form.controls.age;
 
-    if (this.userProfile) this.form.patchValue(this.userProfile);
+    if (this.userProfile) { this.form.patchValue(this.userProfile); }
 
     const cq: CloseQuestion[] = (this.closedQuestions = []);
     cq.push({
@@ -127,7 +127,7 @@ export class QuestionaireComponent extends BaseFormComponent {
     if (step.completed) {
       const userProfile = Object.assign({}, this.form.value);
       this.userProfile = userProfile;
-      if (this.completed) this.completed.emit(userProfile);
+      if (this.completed) { this.completed.emit(userProfile); }
     }
   }
 

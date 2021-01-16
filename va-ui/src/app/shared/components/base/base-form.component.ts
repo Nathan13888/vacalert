@@ -34,7 +34,7 @@ export abstract class BaseFormComponent extends BaseComponent {
       const field = formGroup.get(key);
       if (typeof field.value === 'string') {
         const value = field.value.trim();
-        if (value !== field.value) field.setValue(value);
+        if (value !== field.value) { field.setValue(value); }
       }
     });
   }
