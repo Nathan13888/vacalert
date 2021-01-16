@@ -1,0 +1,7 @@
+.container {
+  max-width: 600px;
+}
+
+:host ::ng-deep .mat-card-header-text {
+  margin-left: 5px;
+}

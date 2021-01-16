@@ -1,19 +1,14 @@
 .container {
-  padding: 10px;
   max-width: 100%;
 }
 
 svg.map {
   fill: #a1d99b;
   cursor: pointer;
-  max-width: 600px;
+  max-width: 800px;
 }
 
-.map {
-  padding: 10px, 0;
-}
-
-.map-location:hover {
+.map-location.selected {
   fill: rgb(201, 224, 240);
 }
 

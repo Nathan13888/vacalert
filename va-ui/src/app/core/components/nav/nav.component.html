@@ -1,53 +1,47 @@
-<mat-sidenav-container
-  class="sidenav-container"
-  *ngIf="layoutService.handset$ | async as handset"
->
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport="true"
-    [attr.role]="handset.matches ? 'dialog' : 'navigation'"
-    [mode]="handset.matches ? 'over' : 'side'"
-    [opened]="!handset.matches"
-  >
-    <mat-toolbar class="toolbar-fixed-height" color="primary"></mat-toolbar>
-    <mat-nav-list class="wallpaper nav-list" (click)="onSideNavClick()">
-      <a mat-list-item routerLink="/" matTooltip="Home">
-        <mat-icon matListIcon>home</mat-icon>
-        <p matLine>Home</p>
-      </a>
-      <a mat-list-item routerLink="/map" matTooltip="Map">
-        <mat-icon matListIcon>map</mat-icon>
-        <p matLine>Map</p>
-      </a>
-      <a mat-list-item routerLink="/subscribe" matTooltip="Subscribe">
-        <mat-icon matListIcon>subscriptions</mat-icon>
-        <p matLine>Subscribe</p>
-      </a>
-      <a mat-list-item routerLink="/locator" matTooltip="Locator">
-        <mat-icon matListIcon>location_on</mat-icon>
-        <p matLine>Locator</p>
-      </a>
-      <a mat-list-item routerLink="/appointment" matTooltip="Appointment">
-        <mat-icon matListIcon>schedule</mat-icon>
-        <p matLine>Appointment</p>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <app-loading-indicator> </app-loading-indicator>
-    <div
-      class="sticky-toolbar toolbar-fixed-height"
-      [class.toolbar-indent]="!handset.matches"
+<ng-container *ngIf="layoutService.handset$ | async as handset">
+  <app-nav-toolbar
+    class="sticky-toolbar"
+    #toolbar
+    [enableDrawerToggle]="handset.matches"
+    (sideNavToggle)="drawer.toggle()"
+  ></app-nav-toolbar>
+  <mat-sidenav-container class="sidenav-container content-with-toolbar">
+    <mat-sidenav
+      #drawer
+      class="sidenav"
+      [fixedInViewport]="handset.matches"
+      [mode]="handset.matches ? 'over' : 'side'"
+      [opened]="!handset.matches"
+      fixedTopGap="56"
     >
-      <app-nav-toolbar
-        #toolbar
-        [enableDrawerToggle]="handset.matches"
-        (sideNavToggle)="drawer.toggle()"
-      ></app-nav-toolbar>
-    </div>
-    <main class="wallpaper content content-with-toolbar">
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <mat-nav-list class="wallpaper nav-list" (click)="onSideNavClick()">
+        <a mat-list-item routerLink="/">
+          <mat-icon matListIcon>home</mat-icon>
+          <p matLine>Home</p>
+        </a>
+        <a mat-list-item routerLink="/map">
+          <mat-icon matListIcon>map</mat-icon>
+          <p matLine>Vaccine Tracker</p>
+        </a>
+        <a mat-list-item routerLink="/subscribe">
+          <mat-icon matListIcon>subscriptions</mat-icon>
+          <p matLine>Subscribe</p>
+        </a>
+        <a mat-list-item routerLink="/locator">
+          <mat-icon matListIcon>location_on</mat-icon>
+          <p matLine>Locator</p>
+        </a>
+        <a mat-list-item routerLink="/appointment">
+          <mat-icon matListIcon>schedule</mat-icon>
+          <p matLine>Appointment</p>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+      <app-loading-indicator> </app-loading-indicator>
+      <main class="wallpaper content">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

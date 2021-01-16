@@ -1,7 +1,7 @@
 export class Formatter {
   static formatPercent(percent: number): string {
     if (percent) {
-      const n = Math.round(percent * 100) / 100;
+      const n = Math.round(percent * 10000) / 100;
       return n.toString() + '%';
     } else {
       return '';
