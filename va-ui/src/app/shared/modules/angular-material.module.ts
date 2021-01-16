@@ -1,5 +1,11 @@
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule } from '@angular/core';
+import {
+  MatMomentDateModule,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter,
+} from '@angular/material-moment-adapter';
 //
 // Form Controls
 //
@@ -20,7 +26,12 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MatRippleModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -53,6 +64,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatDatetimepickerModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 
 @NgModule({
   imports: [
@@ -71,8 +84,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSliderModule,
     MatSlideToggleModule,
 
-    MatNativeDateModule,
-    // MatMomentDateModule,
+    MatMomentDateModule,
+    MatMomentDatetimeModule,
+    MatDatetimepickerModule,
 
     MatMenuModule,
     MatSidenavModule,
@@ -122,6 +136,10 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSliderModule,
     MatSlideToggleModule,
 
+    MatMomentDateModule,
+    MatMomentDatetimeModule,
+    MatDatetimepickerModule,
+
     MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -153,6 +171,14 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTableModule,
 
     MatRippleModule,
+  ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
 export class AngularMaterialModule {}
