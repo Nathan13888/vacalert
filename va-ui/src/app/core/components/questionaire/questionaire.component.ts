@@ -43,11 +43,11 @@ function isUnderage(value: string) {
 export class QuestionaireComponent extends BaseFormComponent {
   userProfile: UserProfile;
 
-  result = false;
-
   closedQuestions: CloseQuestion[];
 
   ageControl: AbstractControl;
+
+  phase: string;
 
   @Output()
   completed = new EventEmitter<UserProfile>();
@@ -82,7 +82,9 @@ export class QuestionaireComponent extends BaseFormComponent {
 
     this.ageControl = this.form.controls.age;
 
-    if (this.userProfile) { this.form.patchValue(this.userProfile); }
+    if (this.userProfile) {
+      this.form.patchValue(this.userProfile);
+    }
 
     const cq: CloseQuestion[] = (this.closedQuestions = []);
     cq.push({
@@ -125,9 +127,12 @@ export class QuestionaireComponent extends BaseFormComponent {
     step = steps[stepper.selectedIndex];
 
     if (step.completed) {
+      this.phase = '2';
       const userProfile = Object.assign({}, this.form.value);
       this.userProfile = userProfile;
-      if (this.completed) { this.completed.emit(userProfile); }
+      if (this.completed) {
+        this.completed.emit(userProfile);
+      }
     }
   }
 

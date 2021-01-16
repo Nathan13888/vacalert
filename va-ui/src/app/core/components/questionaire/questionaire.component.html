@@ -12,7 +12,7 @@
         <mat-step [stepControl]="form.controls.province">
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
             <div>Which province do you live in?</div>
-            <mat-form-field style="width: 200px">
+            <mat-form-field style="width: 220px">
               <select
                 matNativeControl
                 [formControl]="form.controls.province"
@@ -87,40 +87,13 @@
           </div>
           <ng-container *ngTemplateOutlet="navigation"></ng-container>
         </mat-step>
-        <!-- <ng-container
-              *ngTemplateOutlet="
-                toggle;
-                context: {
-                  formControl: form.controls.homeCare,
-                  onClick: onClickToggle(e),
-                  onChange: onChangeToggle(e)
-                }
-              "
-            ></ng-container> -->
-        <!-- <ng-container
-            *ngTemplateOutlet="
-              navigation;
-              context: {
-                disableNext: form.controls.homeCare.invalid
-              }
-            "
-          ></ng-container> -->
-        <!-- <mat-step [stepControl]="form.controls.pregnant">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <span class="img-pregnant illustration"> </span>
-            <div>Are you a pregnant woman?</div>
-            <app-boolean-toggle></app-boolean-toggle>
-          </div>
-          <ng-container *ngTemplateOutlet="navigation"></ng-container>
-        </mat-step> -->
-        <!-- <span class="img-health illustration"> </span> -->
-
         <mat-step [completed]="true">
           <ng-template matStepLabel>Done</ng-template>
-          <p>
-            According to the guidelines in your province, you are in Stage 2 of
-            the vaccine rollout. You should expect to get immunized between July
-            and September 2021. Click
+          <p class="result">
+            According to the official guidelines, you are in
+            <span class="bold">Phase {{ phase }}</span> of the vaccine rollout.
+            You should expect to get immunized
+            <span class="bold">between March and July 2021</span>. Click
             <a class="underline" routerLink="/subscribe">here</a> to subscribe
             to Vaccine alerts when it becomes available to you.
           </p>
@@ -163,25 +136,6 @@
             </div>
           </div>
         </ng-template>
-
-        <!-- <ng-template
-          #toggle
-          let-formControl="formControl"
-          let-onClick="onClick"
-          let-onChange="onChange"
-        >
-          <mat-button-toggle-group
-            [formControl]="formControl"
-            (change)="onChange($event)"
-          >
-            <mat-button-toggle [value]="true" (click)="onClick(true)">
-              <div>Yes</div>
-            </mat-button-toggle>
-            <mat-button-toggle [value]="false" (click)="onClick(false)">
-              <div>No</div>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </ng-template> -->
       </mat-horizontal-stepper>
     </form>
     <div style="padding: 5px">
@@ -192,6 +146,6 @@
     </div>
   </mat-card-content>
 </mat-card>
-<mat-card class="container" *ngIf="result">
+<!-- <mat-card class="container" *ngIf="result">
   <mat-card-content> </mat-card-content>
-</mat-card>
+</mat-card> -->

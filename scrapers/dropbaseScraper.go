@@ -1,9 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
+	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -17,22 +21,22 @@ func main() {
 	scrape() // run this using a CRON job
 }
 
-// scrape this article
-/* !!! STEPS !!!
+/* !!! PROCEDURE !!!
 
-- scrap all tables in article
-- take data from tables and use DROPBASE to import the database
-- connect to DROPBASE's REST api using the token
--
+- scrap all tables in article for vaccine data
+- import data into dropbase
+- feed data through Dropbase's pipeline and process it
+- get processed data from pipeline from postgREST
+- cache data into a distributed database like Cockroach
 
 */
 var article = "https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection/prevention-risks/covid-19-vaccine-treatment/vaccine-rollout.html"
 
 type distributedTotal struct {
-	location string
-	pfizer   int
-	moderna  int
-	total    int
+	Location string `json:"location"`
+	Pfizer   int    `json:"pfizer"`
+	Moderna  int    `json:"moderna"`
+	Total    int    `json:"total"`
 }
 
 func scrape() {
@@ -45,34 +49,72 @@ func scrape() {
 		cap := e.DOM.ContentsFiltered("caption").Contents().Text()
 		fmt.Printf("Caption: %s\n", strings.Trim(cap, " \n"))
 		// fmt.Println(e.ChildAttr("caption", ""))
+
+		totals := []distributedTotal{}
+
 		e.ForEach("tbody tr", func(i int, e *colly.HTMLElement) {
-			// fmt.Println(i)
 			if i <= 13 {
-				var data distributedTotal
+				data := distributedTotal{}
 				e.ForEach("tr td", func(j int, ee *colly.HTMLElement) {
-					// fmt.Println(j)
 					text := ee.DOM.Contents().Text()
 					if j == 0 {
-						data.location = text
-						// fmt.Println(text)
+						if strings.Contains(text, "Canada") {
+							text = "Canada"
+						}
+
+						// remove all duplicate spaces
+						reg := regexp.MustCompile(`\s+`)
+						text := reg.ReplaceAllString(text, " ")
+
+						data.Location = text
 					} else {
-						cont, _ := strconv.Atoi(strings.Trim(text, " ,"))
-						// fmt.Println(cont)
+						cont, err := strconv.Atoi(
+							strings.Trim(strings.ReplaceAll(text, ",", ""), " "))
+						if err != nil {
+							panic(err)
+						}
 						if j == 1 {
-							data.pfizer = cont
-							// fmt.Println(cont)
+							data.Pfizer = cont
 						} else if j == 2 {
-							data.moderna = cont
-							// fmt.Println(cont)
+							data.Moderna = cont
+						} else if j == 3 {
+							data.Total = cont
 						}
 					}
-					fmt.Println(data)
 				})
+				// fmt.Println(data)
+				// json, _ := json.Marshal(data)
+				// fmt.Println(string(json))
+				totals = append(totals, data)
 			}
 		})
+
+		fmt.Println(totals)
+
+		json, err := json.Marshal(totals)
+
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println(string(json))
+		jsonToFile("out.json", string(json))
 	})
 
 	c.Visit(article)
+}
+
+func jsonToFile(name string, json string) {
+	file, err := os.Create(name)
+	if err != nil {
+		// return err
+	}
+	defer file.Close()
+
+	_, err = io.WriteString(file, json)
+	if err != nil {
+		// return err
+	}
 }
 
 func addHandlers(c *colly.Collector) {

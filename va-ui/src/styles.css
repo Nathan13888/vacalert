@@ -322,3 +322,7 @@ body.no-cursor * {
   min-width: 32px;
   min-height: 32px;
 }
+
+.bold {
+  font-weight: bold;
+}

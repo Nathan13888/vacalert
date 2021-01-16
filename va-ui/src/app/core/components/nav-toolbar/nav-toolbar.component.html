@@ -1,8 +1,8 @@
 <mat-toolbar
-  class="toolbar-fixed-height"
+  class="toolbar-fixed-height toolbar"
   fxLayoutAlign="start center"
   fxLayoutGap="10px"
-  color="primary"
+  color="warn"
   *ngIf="layoutService.handset$ | async as handset"
 >
   <ng-container *ngIf="layoutService.small$ | async as small">

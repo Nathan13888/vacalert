@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 
+.toolbar {
+  background-color: rgb(220, 20, 60);
+}
+
 .heading {
   display: inline-block;
   font-family: "Fredoka One", cursive;
@@ -19,7 +23,7 @@
   font-size: 0.8em;
   font-style: italic;
   padding: 4px;
-  color: rgb(201, 191, 216);
+  color: rgb(209, 216, 191);
   margin-left: 5px;
   white-space: pre-wrap;
 }

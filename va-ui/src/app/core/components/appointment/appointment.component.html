@@ -1,7 +1,19 @@
 <div fxLayout="column" fxLayoutGap="5px">
-  <mat-card *ngIf="appointmentTime">
+  <mat-card>
     <mat-card-content>
-      <div class="mat-h2">
+      <div *ngIf="!appointmentTime">
+        <div class="mat-title">Set reminder for my appointment:</div>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a time</mat-label>
+          <input matInput [matDatepicker]="picker" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="mat-h2" *ngIf="appointmentTime">
         You have an appointment to take the first dose of Covid vaccine on
         <span style="font-weight: 600">
           {{ formatter.formatDateTime(appointmentTime) }}</span
@@ -9,9 +21,25 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <app-location-info *ngIf="loc" [location]="loc"></app-location-info>
-
-  <div>
-    <button mat-raised-button color="warn">Set Reminder</button>
+  <app-location-info *ngIf="loc" [location]="loc">
+    <div slot="trailer" class="margin-top" fxLayoutGap="10px">
+      <a class="underline" (click)="onPickLocation()"
+        >Choose another location</a
+      >
+      <a class="underline" (click)="onEnterLocation()">Enter location</a>
+    </div>
+  </app-location-info>
+  <div *ngIf="!loc" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <mat-form-field style="width: 400px">
+      <mat-label>Location</mat-label>
+      <input
+        #locationInput
+        matNativeControl
+        type="text"
+        maxlength="500"
+        autocomplete="off"
+      />
+    </mat-form-field>
+    <a class="underline" (click)="onPickLocation()">Choose a location</a>
   </div>
 </div>
