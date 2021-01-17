@@ -49,7 +49,7 @@ export class CelebrateComponent
       useWorker: true,
     });
 
-    const end = Date.now() + 2 * 1000;
+    const end = Date.now() + 5 * 1000;
     this.interval = setInterval(() => {
       if (Date.now() > end) {
         this.stop();

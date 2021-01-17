@@ -23,6 +23,7 @@ import { MapPopoverComponent } from './components/map-popover/map-popover.compon
 import { LocatorComponent } from './components/locator/locator.component';
 import { AppointmentComponent } from './components/appointment/appointment.component';
 import { LocationInfoComponent } from './components/location-info/location-info.component';
+import { FinaleComponent } from './components/finale/finale.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LocationInfoComponent } from './components/location-info/location-info.
     LocatorComponent,
     AppointmentComponent,
     LocationInfoComponent,
+    FinaleComponent,
   ],
   imports: [
     BrowserAnimationsModule,

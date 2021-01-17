@@ -89,6 +89,7 @@ export class SubscribeComponent implements OnInit, OnDestroy {
 
   subscribeBrowserNotifications(): void {
     console.log('Requesting browser notification permissions');
+    this.alertSubscription.webEnabled = true;
     const messaging = firebase.messaging();
     messaging
       .requestPermission()
@@ -115,8 +116,6 @@ export class SubscribeComponent implements OnInit, OnDestroy {
       .catch((err) => {
         console.error('Unable to get permission to notify.', err);
       });
-
-    this.alertSubscription.webEnabled = true;
   }
 
   subscribeEmailUpdates(): void {

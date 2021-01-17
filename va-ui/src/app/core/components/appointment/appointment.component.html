@@ -4,32 +4,53 @@
       <div *ngIf="!submitted">
         <div class="mat-title">Set reminder for your appointment:</div>
 
-        <mat-form-field>
-          <mat-label>Choose a time</mat-label>
-          <mat-datetimepicker-toggle
-            [for]="datetimePicker"
-            matSuffix
-          ></mat-datetimepicker-toggle>
-          <mat-datetimepicker
-            #datetimePicker
-            type="datetime"
-            openOnFocus="true"
-            timeInterval="5"
-            mode="portrait"
-          ></mat-datetimepicker>
-          <input
-            matInput
-            [formControl]="datetimeField"
-            [matDatetimepicker]="datetimePicker"
-            [min]="minDate"
-            [max]="maxDate"
-            required
-            autocomplete="false"
-          />
-        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <mat-form-field>
+            <mat-label>Choose a time</mat-label>
+            <mat-datetimepicker-toggle
+              [for]="datetimePicker"
+              matSuffix
+            ></mat-datetimepicker-toggle>
+            <mat-datetimepicker
+              #datetimePicker
+              type="datetime"
+              openOnFocus="true"
+              timeInterval="5"
+              mode="portrait"
+            ></mat-datetimepicker>
+            <input
+              #timeInput
+              matInput
+              [formControl]="datetimeField"
+              [matDatetimepicker]="datetimePicker"
+              [min]="minDate"
+              [max]="maxDate"
+              required
+              autocomplete="false"
+            />
+          </mat-form-field>
+
+          <div>
+            <mat-button-toggle-group
+              #group="matButtonToggleGroup"
+              [formControl]="doseField"
+            >
+              <mat-button-toggle color="primary" [value]="1">
+                <div>First Dose</div>
+              </mat-button-toggle>
+              <mat-button-toggle color="primary" [value]="2">
+                <div>Second Dose</div>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
       </div>
       <div class="mat-h2" *ngIf="submitted && datetimeField.value">
-        You have an appointment to take the Covid vaccine on
+        You have an appointment to take the
+        <span class="bold">
+          {{ doseField.value === 2 ? "second" : "first" }} dose</span
+        >
+        of Covid-19 vaccine on
         <span style="font-weight: 600">
           {{
             formatter.formatDateTime(datetimeField.value.toDate().toISOString())
@@ -53,24 +74,24 @@
     </mat-card-content>
   </mat-card>
 
-  <div
-    *ngIf="!submitted && !locId"
-    fxLayoutAlign="start center"
-    fxLayoutGap="10px"
-  >
-    <mat-form-field style="width: 400px">
-      <mat-label>Location</mat-label>
-      <input
-        #locationInput
-        matNativeControl
-        type="text"
-        maxlength="500"
-        autocomplete="off"
-        [formControl]="customLocField"
-      />
-    </mat-form-field>
-    <a class="underline" (click)="onPickLocation()">Choose a location</a>
-  </div>
+  <mat-card *ngIf="!submitted && !locId">
+    <mat-card-content>
+      <div fxLayoutAlign="start center" fxLayoutGap="10px">
+        <mat-form-field style="width: 400px">
+          <mat-label>Location</mat-label>
+          <input
+            #locationInput
+            matNativeControl
+            type="text"
+            maxlength="500"
+            autocomplete="off"
+            [formControl]="customLocField"
+          />
+        </mat-form-field>
+        <a class="underline" (click)="onPickLocation()">Choose a location</a>
+      </div></mat-card-content
+    >
+  </mat-card>
 
   <app-location-info *ngIf="locId" [location]="loc">
     <div slot="trailer" class="margin-top" fxLayout="row" fxLayoutGap="10px">
@@ -92,5 +113,13 @@
     >
       Submit
     </button>
+  </div>
+
+  <div *ngIf="submitted" class="margin">
+    <a class="underline" (click)="onCompletion(doseField.value)">
+      I went to the appointment and have taken the
+      {{ doseField.value === 2 ? "second" : "first" }} dose of the Covid-19
+      vaccine.</a
+    >
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppointmentComponent } from './core/components/appointment/appointment.component';
+import { FinaleComponent } from './core/components/finale/finale.component';
 import { HomeComponent } from './core/components/home/home.component';
 import { LocatorComponent } from './core/components/locator/locator.component';
 import { MapComponent } from './core/components/map/map.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'appointment',
         component: AppointmentComponent,
+      },
+      {
+        path: 'finale',
+        component: FinaleComponent,
       },
     ],
   },

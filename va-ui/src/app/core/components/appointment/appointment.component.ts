@@ -25,8 +25,7 @@ export class AppointmentComponent extends BaseFormComponent {
   @ViewChild('locationInput') locationInput: ElementRef;
 
   datetimeField: FormControl;
-  minDate: Date;
-  maxDate: Date;
+  doseField: FormControl;
 
   customLocField: FormControl;
 
@@ -34,17 +33,10 @@ export class AppointmentComponent extends BaseFormComponent {
   loc: Location;
   submitted = false;
 
-  // get appointmentTime() {
-  //   return this.appStateService.appointment.time;
-  // }
+  minDate: Date;
+  maxDate: Date;
 
-  // set appointmentTime(time: string) {
-  //   this.appStateService.appointment.time = time;
-  // }
-
-  // get appointment() {
-  //   return this.appStateService.appointment;
-  // }
+  @ViewChild('timeInput') timeInput: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -61,14 +53,13 @@ export class AppointmentComponent extends BaseFormComponent {
     const toolbar = this.toolbarService.defaultInstance();
     toolbar.enableAppointment = false;
 
-    this.datetimeField = new FormControl('', Validators.required);
     this.minDate = new Date(2021, 1, 1, 0, 0, 0, 0);
     this.maxDate = new Date(2022, 12, 31, 0, 0, 0, 0);
-    this.customLocField = new FormControl('');
 
     this.form = this.fb.group({
-      time: this.datetimeField,
-      customLocation: this.customLocField,
+      time: (this.datetimeField = new FormControl('', Validators.required)),
+      customLocation: (this.customLocField = new FormControl('')),
+      dose: (this.doseField = new FormControl(1)),
     });
 
     const a = this.appStateService.appointment;
@@ -76,11 +67,9 @@ export class AppointmentComponent extends BaseFormComponent {
       this.datetimeField.setValue(a.time);
       this.locId = a.locationId;
       this.customLocField.setValue(a.customLocation ?? '');
+      this.doseField.setValue(a.dose ?? 1);
       this.submitted = a.submitted;
     }
-    console.log('object :>> ', this.appStateService.appointment);
-
-    //this.appointmentTime = '2021-02-15T10:00:00';
 
     this.activatedRoute.paramMap
       .pipe(
@@ -98,17 +87,6 @@ export class AppointmentComponent extends BaseFormComponent {
       .subscribe((loc: Location | undefined) => {
         this.loc = loc;
       });
-
-    // this.datetimeField.valueChanges
-    //   .pipe(takeUntil(this.ngUnsubscribe))
-    //   .subscribe((value: _moment.Moment) => {
-    //     if (value) {
-    //       console.log('value :>> ', value.toDate());
-    //       this.appointmentTime = value.toDate().toISOString();
-    //     } else {
-    //       this.appointmentTime = undefined;
-    //     }
-    //   });
   }
 
   onEnterLocation() {
@@ -132,14 +110,28 @@ export class AppointmentComponent extends BaseFormComponent {
   onSubmit() {
     this.submitted = true;
   }
+
+  onCompletion(dose: number) {
+    if (dose == 1) {
+      this.datetimeField.setValue('');
+      this.doseField.setValue(2);
+      this.submitted = false;
+      setTimeout(() => {
+        if (this.timeInput) this.timeInput.nativeElement.focus();
+      }, 200);
+    } else if (dose === 2) {
+      this.navigationService.navigate('/finale', { done: 'Y' });
+    }
+  }
+
   ngOnDestroy() {
     super.ngOnDestroy();
     this.appStateService.appointment = {
       time: this.datetimeField.value,
       locationId: this.locId,
       customLocation: this.customLocField.value,
+      dose: this.doseField.value,
       submitted: this.submitted,
     };
-    console.log('object :>> ', this.appStateService.appointment);
   }
 }

@@ -1,3 +1,12 @@
 .container {
   max-width: 800px;
 }
+
+:host ::ng-deep .mat-button-toggle-checked {
+  background-color: #dc143c;
+  font-weight: bold;
+}
+
+:host ::ng-deep .mat-button-toggle-checked .mat-button-toggle-label-content {
+  color: white;
+}
