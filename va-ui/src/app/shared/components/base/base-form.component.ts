@@ -1,6 +1,6 @@
+import { Directive } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseComponent } from './base.component';
-import { Directive } from "@angular/core";
 
 @Directive()
 export abstract class BaseFormComponent extends BaseComponent {

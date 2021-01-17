@@ -1,31 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './core/components/home/home.component';
+import { MapComponent } from './core/components/map/map.component';
 import { NavComponent } from './core/components/nav/nav.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { SubscribeComponent } from './core/components/subscribe/subscribe.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
-    // canActivate: [AuthGuard],
   },
   {
     path: '',
     component: NavComponent,
-    // canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
-        loadChildren: () =>
-          import('./home/home.module').then((module) => module.HomeModule),
+        component: HomeComponent,
+      },
+      {
+        path: 'map',
+        component: MapComponent,
+      },
+      {
+        path: 'subscribe',
+        component: SubscribeComponent,
       },
     ],
   },
   {
     path: '**',
     component: NotFoundComponent,
-    //  canActivate: [AuthGuard]
   },
 ];
 
@@ -34,7 +41,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       useHash: false,
       scrollPositionRestoration: 'disabled',
-      // anchorScrolling: "enabled",
       onSameUrlNavigation: 'reload',
       enableTracing: false,
       relativeLinkResolution: 'legacy',

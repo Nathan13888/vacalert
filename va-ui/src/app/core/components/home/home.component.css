@@ -1,0 +1,48 @@
+.home-container {
+  padding: 10px;
+}
+
+:host ::ng-deep .swiper-background {
+  background: url("/assets/images/background.jpg") no-repeat center center;
+  width: 232px;
+  height: 232px;
+}
+
+:host ::ng-deep .swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+:host ::ng-deep .swiper-slide {
+  font-size: 26px;
+  color: white;
+  box-sizing: border-box;
+  padding: 40px 60px;
+}
+
+:host ::ng-deep .parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+:host ::ng-deep .swiper-slide .text {
+  font-size: 26px;
+  text-shadow: 2px 2px #420909;
+  max-width: 90%;
+}
+
+.link {
+  font-size: 20px;
+  color: lightcyan;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

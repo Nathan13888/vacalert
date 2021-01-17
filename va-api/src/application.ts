@@ -1,11 +1,11 @@
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
+import {RepositoryMixin} from '@loopback/repository';
+import {RestApplication} from '@loopback/rest';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
@@ -40,5 +40,18 @@ export class ApiApplication extends BootMixin(
         nested: true,
       },
     };
+
+    this.setUpDBConfigBinding();
+  }
+
+  private setUpDBConfigBinding() {
+    const dbUrl = process.env.VA_DB_URL;
+    if (dbUrl) {
+      this.bind('datasources.config.Api').to({
+        name: 'Api',
+        connector: 'postgresql',
+        url: dbUrl,
+      });
+    }
   }
 }

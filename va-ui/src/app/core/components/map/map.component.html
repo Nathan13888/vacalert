@@ -1,0 +1,32 @@
+<div class="container content-with-toolbar">
+  <div class="mat-h2">Doses administered in Canada</div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="map.viewBox"
+    class="map mat-elevation-z1"
+    [attr.aria-label]="map.label"
+  >
+    <path
+      *ngFor="let location of map.locations"
+      #path
+      [attr.name]="location.name"
+      [attr.id]="location.id"
+      [attr.d]="location.path"
+      class="map-location"
+      (click)="onClickLocation(location)"
+    >
+      <!-- mouseover='onMouseOver($event, location)'
+    mouseout='onMouseOver($event, location)'
+     mouseover='onMouseOver($event, location)' -->
+    </path>
+    <text
+      *ngFor="let label of labels"
+      text-anchor="start"
+      [attr.x]="label.x"
+      [attr.y]="label.y"
+      fill="red"
+    >
+      {{ label.text }}
+    </text>
+  </svg>
+</div>

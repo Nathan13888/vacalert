@@ -22,11 +22,6 @@ export class ResourceBundle {
   static readonly Create = 'Create';
   static readonly Add = 'Add';
   static readonly AddItem = 'Add Item';
-  static readonly AddGroup = 'Add Group';
-  static readonly AddChallenge = 'Add Contest/Challenge/Resource';
-  static readonly AddDeck = 'Add Deck';
-  static readonly AddProblemOrText = 'Add Problem/Text Content';
-  static readonly AddCardOrText = 'Add Card/Text Content';
   static readonly Edit = 'Edit';
   static readonly EditDetails = 'Edit Details';
   static readonly Remove = 'Remove';
@@ -50,14 +45,6 @@ export class ResourceBundle {
     'Are you sure you want to delete {0}? This is irreversible.';
 
   static readonly NoDataFound = 'No data found';
-  static readonly PastedDataIncompatible =
-    'Pasted data is incompatible with the current context';
-
-  static readonly LinkCopiedToClipboard = 'Link copied to clipboard';
-
   static readonly UnsavedChangesPrompt =
     'You have unsaved changes. Are you sure you want to leave this screen?';
-
-  static readonly PlaceholderGroupHint =
-    'Placeholders with the same group name are interchangeable for the purpose of checking if a user input is correct.';
 }

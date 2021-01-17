@@ -298,11 +298,11 @@ mat-divider.toolbar-divider {
   color: white;
 }
 
-.toolbar-title {
+/* .toolbar-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+} */
 
 .clearfix:after {
   content: "";
@@ -323,4 +323,13 @@ mat-divider.toolbar-divider {
 
 body.no-cursor * {
   cursor: none;
+}
+
+.app-img {
+  background: url("/assets/images/app.png") no-repeat center center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
 }

@@ -20,6 +20,9 @@ interface ScrollPositionRestore {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent extends BaseComponent {
+  readonly VAPID_PUBLIC_KEY =
+    'BE4XrLe_h3Z_FVvuwPBYu6ApFvHM86gAoXEpS0oPPglQr0irrDXSaka5UXbhk4zWHmyhmD0rAYrUf0xu5-GcDLM';
+
   constructor(
     private routerLocationService: RouterLocationService,
     private viewportScroller: ViewportScroller,

@@ -4,10 +4,7 @@
     "title": "va-api",
     "version": "0.0.1",
     "description": "va-api",
-    "contact": {
-      "name": "fredc",
-      "email": "fch138@gmail.com"
-    }
+    "contact": {}
   },
   "paths": {
     "/ping": {

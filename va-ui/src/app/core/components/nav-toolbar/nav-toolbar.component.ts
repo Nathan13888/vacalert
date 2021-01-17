@@ -16,10 +16,19 @@ export class NavToolbarComponent implements OnInit {
   heading: string;
 
   @Input()
+  subHeading: string;
+
+  @Input()
   enableDrawerToggle: boolean;
 
   @Input()
   enableHome: boolean;
+
+  @Input()
+  enableMap: boolean;
+
+  @Input()
+  enableSubscribe: boolean;
 
   @Input()
   enableBack: boolean;
@@ -76,10 +85,13 @@ export class NavToolbarComponent implements OnInit {
   ngOnInit() {}
 
   resetToDefault() {
-    this.heading = '';
+    this.heading = 'Vaccine Alerts';
+    // this.subHeading = 'Stay alert to Covid-19 vaccines';
     this.enableHome = true;
+    this.enableMap = true;
+    this.enableSubscribe = true;
     this.enableBack = true;
-    this.enableForward = true;
+    this.enableForward = false;
     this.enableSearch = true;
     this.enableBrowse = true;
     this.enableRandom = true;

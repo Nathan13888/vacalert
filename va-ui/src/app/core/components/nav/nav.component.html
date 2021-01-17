@@ -10,11 +10,19 @@
     [mode]="handset.matches ? 'over' : 'side'"
     [opened]="!handset.matches"
   >
-    <mat-toolbar class="toolbar-fixed-height mat-elevation-z1"></mat-toolbar>
+    <mat-toolbar class="toolbar-fixed-height" color="primary"></mat-toolbar>
     <mat-nav-list class="wallpaper nav-list" (click)="onSideNavClick()">
       <a mat-list-item routerLink="/">
         <mat-icon matListIcon>home</mat-icon>
         <p matLine>Home</p>
+      </a>
+      <a mat-list-item routerLink="/map">
+        <mat-icon matListIcon>map</mat-icon>
+        <p matLine>Map</p>
+      </a>
+      <a mat-list-item routerLink="/subscribe">
+        <mat-icon matListIcon>subscriptions</mat-icon>
+        <p matLine>Subscribe</p>
       </a>
     </mat-nav-list>
   </mat-sidenav>

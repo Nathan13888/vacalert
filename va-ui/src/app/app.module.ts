@@ -5,9 +5,11 @@ import { AppLocator } from './app-locator';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
-  imports: [BrowserModule, CoreModule, SharedModule, AppRoutingModule],
+  imports: [BrowserModule, CoreModule, SharedModule, AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   providers: [],

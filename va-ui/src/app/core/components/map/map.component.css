@@ -1,0 +1,24 @@
+.container {
+  padding: 10px;
+  max-width: 100%;
+}
+
+svg.map {
+  fill: rgb(201, 224, 240);
+  cursor: pointer;
+}
+
+.map {
+  padding: 10px, 0;
+}
+
+.map-location:hover {
+  fill: #a1d99b;
+}
+
+:host ::ng-deep svg {
+  stroke: #666;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

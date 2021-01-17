@@ -17,7 +17,8 @@ import { BaseComponent } from '../base/base.component';
   styleUrls: ['./celebrate.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CelebrateComponent extends BaseComponent
+export class CelebrateComponent
+  extends BaseComponent
   implements OnInit, OnChanges, OnDestroy {
   canvasContainer: HTMLElement;
   canvas: HTMLCanvasElement;
@@ -61,7 +62,6 @@ export class CelebrateComponent extends BaseComponent
         shapes: ['circle', 'square'],
         origin: {
           x: Math.random(),
-          // since they fall down, start a bit higher than random
           y: Math.random() - 0.2,
         },
         zIndex: 9999,

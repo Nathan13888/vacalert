@@ -1,0 +1,48 @@
+.container {
+  max-width: 700px;
+}
+.age-field {
+  width: 80px;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container {
+  display: none;
+}
+
+:host ::ng-deep .mat-horizontal-content-container {
+  margin-top: 10px;
+}
+
+:host ::ng-deep .illustration .mat-icon {
+  width: 128px;
+  height: 128px;
+}
+
+:host ::ng-deep .illustration .mat-icon svg {
+  width: 128px;
+  height: 128px;
+  transform: scale(0.5);
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  padding: 2px;
+  border-top: 0;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  position: unset;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
