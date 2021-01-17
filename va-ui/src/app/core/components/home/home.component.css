@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
 .home-container {
   padding: 10px;
 }
@@ -31,15 +33,16 @@
 }
 
 :host ::ng-deep .swiper-slide .text {
-  font-size: 28px;
+  font-family: "Fredoka One", cursive;
+  font-size: 26px;
   font-weight: 450;
-  text-shadow: 2px 2px #420909;
+  text-shadow: 2px 1px #000000;
   max-width: 90%;
 }
 
 .link {
   font-size: 20px;
-  color: lightcyan;
+  color: darkcyan;
   cursor: pointer;
   text-decoration: none;
 }

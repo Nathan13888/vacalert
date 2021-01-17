@@ -9,6 +9,7 @@ import { VaccinationControllerService } from '@app/api/api/vaccinationController
 import { Vaccination } from '@app/api/model/vaccination';
 import { NavToolbarService } from '@app/core/services/nav-toolbar.service';
 import { ReferenceService } from '@app/core/services/reference.service';
+import { Formatter } from '@app/shared/common/formatter';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 import { HoverEvent } from '@app/shared/directives/hover.directive';
 import Canada from '@svg-maps/canada';
@@ -41,7 +42,21 @@ export class MapComponent extends BaseComponent implements AfterViewInit {
 
   selectedItem?: Vaccination;
 
-  mapVaccinations: Map<string, Vaccination>;
+  adjs = [
+    { id: 'pe', x: 10, y: -25 },
+    { id: 'yt', x: -40, y: 15 },
+    { id: 'bc', x: 20, y: 0 },
+    { id: 'qc', x: -35, y: 0 },
+    { id: 'ab', x: 0, y: 0 },
+    { id: 'nt', x: -20, y: 170 },
+    { id: 'on', x: -20, y: -20 },
+    { id: 'nu', x: -60, y: 240 },
+    { id: 'sk', x: 0, y: 0 },
+    { id: 'nl', x: 0, y: 0 },
+    { id: 'nb', x: -20, y: 0 },
+    { id: 'mb', x: -20, y: 0 },
+    { id: 'ns', x: 20, y: 20 },
+  ];
 
   constructor(
     private toolbarService: NavToolbarService,
@@ -60,36 +75,53 @@ export class MapComponent extends BaseComponent implements AfterViewInit {
     this.vaccinationControllerService
       .vaccinationControllerFind()
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((vs: Vaccination[]) => {
-        this.mapVaccinations = new Map<string, Vaccination>();
-        vs.forEach((v) =>
-          this.mapVaccinations.set(v.province.toLocaleLowerCase(), v)
-        );
+      .subscribe((vacs: Vaccination[]) => {
+        vacs.forEach((vac) => {
+          const id = vac.province.toLocaleLowerCase();
+          const location = this.map.locations.find(
+            (loc: Location) => id === loc.id
+          );
+          location['data-vac'] = vac;
+          location['data-percent'] = this.getPercent(vac);
+        });
       });
   }
 
   ngAfterViewInit(): void {
     for (const path of this.paths) {
-      const id = path.nativeElement.id;
+      const id: string = path.nativeElement.id;
       const bounds = path.nativeElement.getBBox();
-      const x = bounds.x + bounds.width / 2;
-      const y = bounds.y + bounds.height / 2;
+      let x = bounds.x + bounds.width / 2;
+      let y = bounds.y + bounds.height / 2;
+      const adj = this.adjs.find((adj) => adj.id === id);
+      if (adj) {
+        x += adj.x;
+        y += adj.y;
+      }
       const location = this.map.locations.find(
         (loc: Location) => id === loc.id
       );
-      this.labels.push({ text: id, x, y, location });
+      location['data-path'] = path;
+      this.labels.push({ text: id.toLocaleUpperCase(), x, y, location });
+    }
+  }
+
+  private getPercent(vac: Vaccination) {
+    return Formatter.formatPercent(+vac.firstDoses / +vac.population);
+  }
+
+  onHoverLocation(location: Location, event: HoverEvent) {
+    const path: ElementRef = location['data-path'];
+    const vac = location['data-vac']; // may be undefined initially
+    const cl = path.nativeElement.classList;
+    if (event.activated) {
+      this.selectedItem = vac;
+      cl.add('selected');
+    } else {
+      this.selectedItem = undefined;
+      cl.remove('selected');
     }
   }
 
   onClickLocation(location: Location) {}
-
-  onHoverLocation(location: Location, event: HoverEvent) {
-    if (event.activated && this.mapVaccinations && location) {
-      this.selectedItem = this.mapVaccinations.get(
-        location.id.toLocaleLowerCase()
-      );
-    } else {
-      this.selectedItem = undefined;
-    }
-  }
 }

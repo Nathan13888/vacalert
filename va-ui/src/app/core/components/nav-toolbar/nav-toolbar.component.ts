@@ -91,7 +91,7 @@ export class NavToolbarComponent implements OnInit {
   ngOnInit() {}
 
   resetToDefault() {
-    this.heading = 'Vaccine Alerts';
+    this.heading = 'VacAlert';
     // this.subHeading = 'Stay alert to Covid-19 vaccines';
     this.enableHome = true;
     this.enableMap = true;

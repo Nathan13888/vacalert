@@ -1,66 +1,98 @@
-<p>Subscribe to Covid-19 Alerts</p>
-<button (click)="this.subscribeBrowserNotifications()">
-  Subscribe to browser notifications!
-</button>
-<!-- <p>Device token: {{ displayToken }}</p> -->
+<div class="container">
+  <p class="mat-title" style="font-weight: bold">
+    Subscribe to Covid-19 Alerts
+  </p>
 
-<form [formGroup]="emailForm" (ngSubmit)="subscribeEmailUpdates()">
-  <div class="column">
-    <div class="field">
-      <label class="label">Email</label>
-      <div class="control has-icons-left">
-        <input
-          type="email"
-          class="input"
-          placeholder="Email"
-          formControlName="email"
-          required
-        />
-        <!-- TODO: Add icon envelope -->
-        <!-- <span class="icon is-small is-left">
-          <i class="icon-envelope"></i>
-        </span> -->
-      </div>
-      <ng-template
-        [ngIf]="this.emailFormSubmitted && this.emailForm.controls.email.errors"
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="this.subscribeBrowserNotifications()"
       >
-        <p
-          class="help is-danger"
-          *ngIf="this.emailForm.controls.email.errors.required"
-        >
-          Email is required.
-        </p>
-        <p
-          class="help is-danger"
-          *ngIf="this.emailForm.controls.email.errors.email"
-        >
-          Email is invalid!
-        </p>
-      </ng-template>
+        <mat-icon>message</mat-icon>
+        Opt in to in-app notifications!
+      </button>
+      <!-- <p>Device token: {{ displayToken }}</p> -->
     </div>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">email</mat-icon>
+        <mat-card-title>Get the latest updates via e-mail</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="emailForm"
+          (submit)="subscribeEmailUpdates()"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-form-field floatLabel="never">
+            <mat-label>Enter your e-mail</mat-label>
+            <input
+              matNativeControl
+              type="email"
+              class="input"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="hasError(emailForm.controls.email, 'required')">
+              E-mail is required
+            </mat-error>
+            <mat-error *ngIf="hasError(emailForm.controls.email, 'email')">
+              E-mail is invalid
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" type="submit">
+              Subscribe
+            </button>
+          </div>
+        </form></mat-card-content
+      ></mat-card
+    >
+
+    <mat-card>
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">sms</mat-icon>
+        <mat-card-title
+          >Subscribe to SMS alerts (Powered by Vonage)</mat-card-title
+        >
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="smsForm"
+          (submit)="subscribeSMSUpdates()"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-form-field floatLabel="never">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matNativeControl
+              type="tel"
+              class="input"
+              formControlName="phoneNumber"
+              required
+            />
+            <mat-error
+              *ngIf="hasError(smsForm.controls.phoneNumber, 'required')"
+            >
+              Phone number is required
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" type="submit">
+              Subscribe
+            </button>
+          </div>
+        </form></mat-card-content
+      ></mat-card
+    >
   </div>
-
-  <button type="submit">Get the latest updates via email!</button>
-</form>
-
-<form [formGroup]="smsForm" (ngSubmit)="this.subscribeSMSUpdates()">
-  <div class="column">
-    <div class="field">
-      <label class="label">Phone Number</label>
-      <input
-        type="tel"
-        class="input"
-        placeholder=""
-        formControlName="phoneNumber"
-        required
-      />
-      <ng-template
-        [ngIf]="this.smsFormSubmitted && this.smsForm.controls.email.errors"
-      >
-        <p class="help is-danger">Invalid input.</p>
-      </ng-template>
-    </div>
-  </div>
-
-  <button type="submit">Subscribe to SMS (powered by Vonage)</button>
-</form>
+</div>

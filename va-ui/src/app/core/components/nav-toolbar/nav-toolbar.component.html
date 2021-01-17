@@ -39,7 +39,6 @@
     >
       <mat-icon>arrow_forward</mat-icon>
     </button>
-    <!-- *ngIf="enableHome && !handset.matches" -->
     <a
       mat-icon-button
       routerLink="/"
@@ -49,11 +48,19 @@
       <mat-icon>home</mat-icon>
     </a>
 
-    <div class="app-img"></div>
+    <!-- <ng-container *ngIf="handset.matches">
+      <ng-container *ngTemplateOutlet="title"></ng-container>
+    </ng-container> -->
 
-    <div *ngIf="heading" class="heading" [matTooltip]="heading">
-      {{ heading }}
-    </div>
+    <ng-container *ngTemplateOutlet="title"></ng-container>
+
+    <ng-template #title>
+      <div class="app-img"></div>
+
+      <div *ngIf="heading" class="heading" [matTooltip]="heading">
+        {{ heading }}
+      </div>
+    </ng-template>
 
     <div
       [appEllipsis]

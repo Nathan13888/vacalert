@@ -195,8 +195,7 @@ mat-icon.mat-card-avatar.big {
 }
 
 .toolbar-indent {
-  /* left: 200px !important; */
-  left: 60px !important;
+  left: 200px !important;
 }
 
 .scroller-loading {
@@ -289,20 +288,10 @@ mat-divider.toolbar-divider {
   white-space: nowrap;
 }
 
-.select-review-status {
-  min-width: 60px !important;
-}
-
 .snackbar-container {
   opacity: 0.1;
   color: white;
 }
-
-/* .toolbar-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
 
 .clearfix:after {
   content: "";

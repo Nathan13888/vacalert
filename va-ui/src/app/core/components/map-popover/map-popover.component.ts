@@ -34,7 +34,7 @@ export class MapPopoverComponent implements OnInit, OnChanges {
         this.item.province
       );
       this.totalDoses = +this.item.firstDoses + +this.item.secondDoses;
-      this.percentOfPopulation = this.totalDoses / +this.item.population;
+      this.percentOfPopulation = +this.item.firstDoses / +this.item.population;
     }
   }
 }
