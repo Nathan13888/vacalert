@@ -1,10 +1,12 @@
 import {BindingScope, injectable} from '@loopback/core';
+import {repository} from '@loopback/repository';
 import Vonage, {
   CredentialsObject,
   MessageError,
   MessageRequestResponse,
   SendSmsOptions
 } from '@vonage/server-sdk';
+import {SmsSubscriptionRepository} from '../repositories/sms-subscription.repository';
 import config from './vonage.config';
 
 @injectable({scope: BindingScope.TRANSIENT})
@@ -16,7 +18,9 @@ export class VonageService {
 
   private v: Vonage;
 
-  constructor() {
+  constructor(
+    @repository(SmsSubscriptionRepository) private smsSubscriptionRepository: SmsSubscriptionRepository
+  ) {
     this.VONAGE_API_KEY = config.VONAGE_API_KEY;
     this.VONAGE_API_SECRET = config.VONAGE_API_SECRET;
     this.TO_NUMBER = config.VONAGE_TO_NUMBER;

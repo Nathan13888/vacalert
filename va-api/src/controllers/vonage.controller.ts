@@ -5,7 +5,6 @@ import {VonageService} from '../services';
 export class VonageController {
   constructor(@service(VonageService) public vonageService: VonageService) {}
 
-  // Map to `GET /ping`
   @post('/vonage/sms/send', {
     responses: {
       '204': {

@@ -28,7 +28,29 @@ congregated boolean null,
 essential boolean null,
 frontline boolean null,
 pregnant boolean null,
-email varchar(150) null
+email varchar(150) null,
 );
 
+drop table if exists location;
 
+create table location (
+id varchar(11) not null primary key,
+name varchar(200) not null,
+address varchar(2000) not null,
+phone varchar(20) not null,
+lat decimal(10,8) not null,
+lng decimal(11,8) not null,
+url varchar(3000) not null
+);
+
+create table SmsSubscription (
+  phoneNumber varchar(50) not null
+);
+
+create table EmailSubscription (
+  email varchar(100) not null
+);
+
+create table BrowserSubscription (
+  deviceToken varchar(500) not null
+);

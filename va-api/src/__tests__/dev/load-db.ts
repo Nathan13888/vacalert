@@ -1,11 +1,10 @@
 import csv from 'csv-parser';
 import fs from 'graceful-fs';
 import {ApiApplication} from '../../application';
-import {Vaccination} from '../../models';
-import {VaccinationRepository} from '../../repositories';
-import {genId} from '../../utils/gen-id';
+import {Location, Vaccination} from '../../models';
+import {LocationRepository, VaccinationRepository} from '../../repositories';
 
-interface Row {
+interface Vac {
   Province: string;
   Population: string;
   'First Doses': string;
@@ -13,17 +12,24 @@ interface Row {
   Received: string;
 }
 
-async function loadCSV(file: string): Promise<Vaccination[]> {
+interface Loc {
+  name: string;
+  address: string;
+  phone: string;
+  lat: string;
+  lng: string;
+  url: string;
+}
+
+async function loadVacs(file: string): Promise<Vaccination[]> {
   return new Promise<Vaccination[]>(resolve => {
     const vaccinations: Vaccination[] = [];
     fs.createReadStream(file)
       .pipe(csv())
-      .on('data', (r: Row) => {
+      .on('data', (r: Vac) => {
         console.log(r);
         if (!r.Province) return;
-        const id = genId();
         const p = new Vaccination();
-        p.id = id;
         p.province = r.Province.trim();
         p.population = +r.Population.trim();
         p.firstDoses = +r['First Doses'].trim();
@@ -39,12 +45,43 @@ async function loadCSV(file: string): Promise<Vaccination[]> {
   });
 }
 
+async function loadLocs(file: string): Promise<Location[]> {
+  return new Promise<Location[]>(resolve => {
+    const locations: Location[] = [];
+    fs.createReadStream(file)
+      .pipe(csv())
+      .on('data', (r: Loc) => {
+        console.log(r);
+        if (!r.name) return;
+        const loc = new Location({
+          name: r.name,
+          address: r.address,
+          phone: r.phone,
+          lat: +r.lat,
+          lng: +r.lng,
+          url: r.url,
+        });
+        console.log('-->loc :>> ', loc);
+        locations.push(loc);
+      })
+      .on('end', () => {
+        console.log('END :>> ', locations);
+        resolve(locations);
+      });
+  });
+}
+
 async function loadData(app: ApiApplication): Promise<void> {
   try {
-    const repo = await app.getRepository(VaccinationRepository);
-    const vs = await loadCSV('data/vaccines.csv');
-    await repo.deleteAll();
-    await repo.createAll(vs);
+    const repoVac = await app.getRepository(VaccinationRepository);
+    const vs = await loadVacs('data/vaccines.csv');
+    await repoVac.deleteAll();
+    await repoVac.createAll(vs);
+
+    const repoLoc = await app.getRepository(LocationRepository);
+    const locs = await loadLocs('data/locations.csv');
+    await repoLoc.deleteAll();
+    await repoLoc.createAll(locs);
   } catch (e) {
     console.log('e :>> ', e);
   }
