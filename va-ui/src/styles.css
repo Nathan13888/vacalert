@@ -322,3 +322,13 @@ body.no-cursor * {
   min-width: 32px;
   min-height: 32px;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.mat-datetimepicker-content
+  .mat-datetimepicker-calendar
+  .mat-datetimepicker-calendar-header {
+  background-color: #a44d04;
+}

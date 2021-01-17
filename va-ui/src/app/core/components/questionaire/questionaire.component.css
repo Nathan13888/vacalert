@@ -9,6 +9,10 @@
   display: none;
 }
 
+:host ::ng-deep .mat-card-content {
+  font-size: 1.1em;
+}
+
 :host ::ng-deep .mat-horizontal-content-container {
   margin-top: 10px;
 }
@@ -68,4 +72,8 @@ input::-webkit-inner-spin-button {
 
 .spacing {
   margin-top: 8px;
+}
+
+.result {
+  font-size: 1.25em;
 }

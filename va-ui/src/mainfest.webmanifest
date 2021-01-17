@@ -1,6 +1,6 @@
 {
-  "name": "VacAlerts",
-  "short_name": "VacAlerts",
+  "name": "VacAlert",
+  "short_name": "VacAlert",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

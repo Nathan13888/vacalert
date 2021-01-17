@@ -6,17 +6,24 @@
   <div fxLayout="column" fxLayoutGap="10px">
     <div>
       <button
+        *ngIf="!alertSubscription.webEnabled"
         mat-raised-button
         color="primary"
         (click)="this.subscribeBrowserNotifications()"
       >
         <mat-icon>message</mat-icon>
-        Opt in to in-app notifications!
+        Opt in to Web Notifications!
       </button>
       <!-- <p>Device token: {{ displayToken }}</p> -->
+      <div *ngIf="alertSubscription.webEnabled">
+        You have subscribed to Web Notifications.
+        <a class="underline margin-left" (click)="onUnsubscribeWeb()"
+          >Unsubscribe</a
+        >
+      </div>
     </div>
 
-    <mat-card>
+    <mat-card *ngIf="!alertSubscription.emailEnabled">
       <mat-card-header>
         <mat-icon mat-card-avatar color="primary">email</mat-icon>
         <mat-card-title>Get the latest updates via e-mail</mat-card-title>
@@ -55,7 +62,14 @@
       ></mat-card
     >
 
-    <mat-card>
+    <div *ngIf="alertSubscription.emailEnabled">
+      You have subscribed to E-mail alerts.
+      <a class="underline margin-left" (click)="onUnsubscribeEmail()"
+        >Unsubscribe</a
+      >
+    </div>
+
+    <mat-card *ngIf="!alertSubscription.smsEnabled">
       <mat-card-header>
         <mat-icon mat-card-avatar color="primary">sms</mat-icon>
         <mat-card-title
@@ -78,6 +92,7 @@
               type="tel"
               class="input"
               formControlName="phoneNumber"
+              appPhoneInput
               required
             />
             <mat-error
@@ -94,5 +109,12 @@
         </form></mat-card-content
       ></mat-card
     >
+
+    <div *ngIf="alertSubscription.smsEnabled">
+      You have subscribed to SMS alerts.
+      <a class="underline margin-left" (click)="onUnsubscribeSMS()"
+        >Unsubscribe</a
+      >
+    </div>
   </div>
 </div>

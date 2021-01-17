@@ -1,17 +1,96 @@
-<div fxLayout="column" fxLayoutGap="5px">
-  <mat-card *ngIf="appointmentTime">
+<div fxLayout="column" fxLayoutGap="5px" class="container">
+  <mat-card>
     <mat-card-content>
-      <div class="mat-h2">
-        You have an appointment to take the first dose of Covid vaccine on
+      <div *ngIf="!submitted">
+        <div class="mat-title">Set reminder for your appointment:</div>
+
+        <mat-form-field>
+          <mat-label>Choose a time</mat-label>
+          <mat-datetimepicker-toggle
+            [for]="datetimePicker"
+            matSuffix
+          ></mat-datetimepicker-toggle>
+          <mat-datetimepicker
+            #datetimePicker
+            type="datetime"
+            openOnFocus="true"
+            timeInterval="5"
+            mode="portrait"
+          ></mat-datetimepicker>
+          <input
+            matInput
+            [formControl]="datetimeField"
+            [matDatetimepicker]="datetimePicker"
+            [min]="minDate"
+            [max]="maxDate"
+            required
+            autocomplete="false"
+          />
+        </mat-form-field>
+      </div>
+      <div class="mat-h2" *ngIf="submitted && datetimeField.value">
+        You have an appointment to take the Covid vaccine on
         <span style="font-weight: 600">
-          {{ formatter.formatDateTime(appointmentTime) }}</span
+          {{
+            formatter.formatDateTime(datetimeField.value.toDate().toISOString())
+          }}</span
         >.
+
+        <span *ngIf="submitted && !locId && customLocField.value">
+          The location is
+          <span class="bold">{{ customLocField.value }}</span
+          >.
+        </span>
+      </div>
+
+      <div *ngIf="submitted && datetimeField.value" fxLayout="row">
+        <div></div>
+        <div class="spacer"></div>
+        <div>
+          <a class="underline" (click)="onEdit()">Change</a>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
-  <app-location-info *ngIf="loc" [location]="loc"></app-location-info>
 
-  <div>
-    <button mat-raised-button color="warn">Set Reminder</button>
+  <div
+    *ngIf="!submitted && !locId"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+  >
+    <mat-form-field style="width: 400px">
+      <mat-label>Location</mat-label>
+      <input
+        #locationInput
+        matNativeControl
+        type="text"
+        maxlength="500"
+        autocomplete="off"
+        [formControl]="customLocField"
+      />
+    </mat-form-field>
+    <a class="underline" (click)="onPickLocation()">Choose a location</a>
+  </div>
+
+  <app-location-info *ngIf="locId" [location]="loc">
+    <div slot="trailer" class="margin-top" fxLayout="row" fxLayoutGap="10px">
+      <div></div>
+      <div class="spacer"></div>
+      <a class="underline" (click)="onPickLocation()"
+        >Choose another location</a
+      >
+      <a class="underline" (click)="onEnterLocation()">Enter location</a>
+    </div>
+  </app-location-info>
+
+  <div class="margin-top" *ngIf="!submitted">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="submitted || form.invalid"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
   </div>
 </div>

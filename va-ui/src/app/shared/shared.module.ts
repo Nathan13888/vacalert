@@ -12,6 +12,7 @@ import { BooleanToggleComponent } from './components/boolean-toggle/boolean-togg
 import { CelebrateComponent } from './components/celebrate/celebrate.component';
 import { EllipsisDirective } from './directives/ellipsis.directive';
 import { HoverDirective } from './directives/hover.directive';
+import { PhoneInputDirective } from './directives/phone-input.directive';
 import { PopoverDirective } from './directives/popover.directive';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { PopoverDirective } from './directives/popover.directive';
     BooleanToggleComponent,
     HoverDirective,
     PopoverDirective,
+    PhoneInputDirective,
   ],
   exports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { PopoverDirective } from './directives/popover.directive';
     BooleanToggleComponent,
     HoverDirective,
     PopoverDirective,
+    PhoneInputDirective,
   ],
 })
 export class SharedModule {}

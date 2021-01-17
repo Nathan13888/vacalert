@@ -92,7 +92,8 @@ export class NavToolbarComponent implements OnInit {
 
   resetToDefault() {
     this.heading = 'VacAlert';
-    // this.subHeading = 'Stay alert to Covid-19 vaccines';
+    //this.subHeading = 'Stay alert to Covid-19 vaccines';
+    this.subHeading = 'Your Personal Vaccine Tracker';
     this.enableHome = true;
     this.enableMap = true;
     this.enableSubscribe = true;
