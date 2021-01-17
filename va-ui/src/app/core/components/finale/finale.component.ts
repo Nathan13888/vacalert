@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@app/core/services/navigation.service';
 import { BaseComponent } from '@app/shared/components/base/base.component';
@@ -11,7 +11,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
   templateUrl: './finale.component.html',
   styleUrls: ['./finale.component.css'],
 })
-export class FinaleComponent extends BaseComponent {
+export class FinaleComponent extends BaseComponent implements AfterViewInit {
   done: boolean;
 
   @ViewChild(CelebrateComponent) celebrateComponent: CelebrateComponent;
@@ -35,6 +35,9 @@ export class FinaleComponent extends BaseComponent {
       .subscribe((done: boolean) => {
         this.done = done;
       });
+  }
+  ngAfterViewInit(): void {
+    if (this.done) this.celebrateComponent.start();
   }
 
   onAnswer(b: boolean) {

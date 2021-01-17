@@ -10,6 +10,10 @@ export class SmsSubscription extends Entity {
   })
   phoneNumber: string;
 
+  @property({
+    type: 'string',
+  })
+  userId: string;
 
   constructor(data?: Partial<SmsSubscription>) {
     super(data);
@@ -20,4 +24,5 @@ export interface SmsSubscriptionRelations {
   // describe navigational properties here
 }
 
-export type SmsSubscriptionWithRelations = SmsSubscription & SmsSubscriptionRelations;
+export type SmsSubscriptionWithRelations = SmsSubscription &
+  SmsSubscriptionRelations;

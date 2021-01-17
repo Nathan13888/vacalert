@@ -10,6 +10,10 @@ export class BrowserSubscription extends Entity {
   })
   deviceToken: string;
 
+  @property({
+    type: 'string',
+  })
+  userId: string;
 
   constructor(data?: Partial<BrowserSubscription>) {
     super(data);
@@ -20,4 +24,5 @@ export interface BrowserSubscriptionRelations {
   // describe navigational properties here
 }
 
-export type BrowserSubscriptionWithRelations = BrowserSubscription & BrowserSubscriptionRelations;
+export type BrowserSubscriptionWithRelations = BrowserSubscription &
+  BrowserSubscriptionRelations;

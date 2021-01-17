@@ -3,13 +3,13 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { SwPush, SwUpdate } from '@angular/service-worker';
 import { SubscriptionControllerService } from '@app/api';
 import {
   AlertSubscription,
-  AppStateService,
+  AppStateService
 } from '@app/core/services/app-state.service';
 import { NavToolbarService } from '@app/core/services/nav-toolbar.service';
 import firebase from 'firebase/app';
@@ -96,6 +96,7 @@ export class SubscribeComponent implements OnInit, OnDestroy {
       .then(() =>
         messaging.getToken().then((token) => {
           console.log('Saving browser subscription request');
+          console.log('Device Token:', token);
           this.subscriptionControllerService
             .subscriptionControllerSubscribeBrowserNotifications({
               deviceToken: token,

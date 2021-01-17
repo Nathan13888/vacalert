@@ -21,7 +21,7 @@ export class AssessmentController {
   })
   async getResult(
     @requestBody() userProfile: UserProfile,
-  ): Promise<ProfileResult> {
+  ): Promise<ProfileResult | undefined> {
     return this.assessmentService.getResult(userProfile);
   }
 }

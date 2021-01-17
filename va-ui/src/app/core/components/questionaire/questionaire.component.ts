@@ -11,9 +11,12 @@ import {
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
+import { AssessmentControllerService } from '@app/api';
 import { UserProfile } from '@app/api/model/userProfile';
 import { AppStateService } from '@app/core/services/app-state.service';
+import { Formatter } from '@app/shared/common/formatter';
 import { BaseFormComponent } from '@app/shared/components/base/base-form.component';
+import { takeUntil } from 'rxjs/operators';
 
 interface CloseQuestion {
   text: string;
@@ -47,7 +50,8 @@ export class QuestionaireComponent extends BaseFormComponent {
 
   ageControl: AbstractControl;
 
-  phase: string;
+  phase: number;
+  dateRange: string;
 
   @Output()
   completed = new EventEmitter<UserProfile>();
@@ -57,7 +61,9 @@ export class QuestionaireComponent extends BaseFormComponent {
 
   constructor(
     protected fb: FormBuilder,
-    private appStateService: AppStateService
+    private appStateService: AppStateService,
+
+    private assessmentService: AssessmentControllerService
   ) {
     super();
     this.userProfile = this.appStateService.userProfile;
@@ -70,7 +76,6 @@ export class QuestionaireComponent extends BaseFormComponent {
         Validators.required,
         Validators.min(0),
         Validators.max(130),
-        // ageValidator,
       ]),
       homeCare: this.fb.control(false),
       healthCare: this.fb.control(false),
@@ -127,11 +132,24 @@ export class QuestionaireComponent extends BaseFormComponent {
     step = steps[stepper.selectedIndex];
 
     if (step.completed) {
-      this.phase = '2';
-      const userProfile = Object.assign({}, this.form.value);
-      this.userProfile = userProfile;
+      this.userProfile = Object.assign({}, this.form.value);
+      this.phase = undefined;
+      this.dateRange = undefined;
+      this.assessmentService
+        .assessmentControllerGetResult(this.userProfile)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((result) => {
+          if (result) {
+            this.phase = result.phase;
+            this.dateRange = Formatter.formatDateRange(
+              result.fromDate,
+              result.toDate
+            );
+          }
+        });
+
       if (this.completed) {
-        this.completed.emit(userProfile);
+        this.completed.emit(this.userProfile);
       }
     }
   }

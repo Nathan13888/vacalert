@@ -13,5 +13,6 @@
 
 export interface EmailSubscription { 
     email: string;
+    userId?: string;
 }
 

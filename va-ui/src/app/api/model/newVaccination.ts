@@ -20,5 +20,8 @@ export interface NewVaccination {
     firstDoses?: number;
     secondDoses?: number;
     received?: number;
+    phase1Date?: string;
+    phase2Date?: string;
+    phase3Date?: string;
 }
 

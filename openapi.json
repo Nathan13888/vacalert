@@ -732,8 +732,8 @@
         "title": "ProfileResult",
         "type": "object",
         "properties": {
-          "stage": {
-            "type": "string"
+          "phase": {
+            "type": "number"
           },
           "fromDate": {
             "type": "string"
@@ -743,7 +743,7 @@
           }
         },
         "required": [
-          "stage"
+          "phase"
         ],
         "additionalProperties": false
       },
@@ -936,6 +936,9 @@
         "properties": {
           "email": {
             "type": "string"
+          },
+          "userId": {
+            "type": "string"
           }
         },
         "required": [
@@ -949,6 +952,9 @@
         "properties": {
           "deviceToken": {
             "type": "string"
+          },
+          "userId": {
+            "type": "string"
           }
         },
         "required": [
@@ -961,6 +967,9 @@
         "type": "object",
         "properties": {
           "phoneNumber": {
+            "type": "string"
+          },
+          "userId": {
             "type": "string"
           }
         },
@@ -990,6 +999,15 @@
           },
           "received": {
             "type": "number"
+          },
+          "phase1Date": {
+            "type": "string"
+          },
+          "phase2Date": {
+            "type": "string"
+          },
+          "phase3Date": {
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -1013,6 +1031,15 @@
           },
           "received": {
             "type": "number"
+          },
+          "phase1Date": {
+            "type": "string"
+          },
+          "phase2Date": {
+            "type": "string"
+          },
+          "phase3Date": {
+            "type": "string"
           }
         },
         "additionalProperties": false,
@@ -1040,6 +1067,15 @@
           },
           "received": {
             "type": "number"
+          },
+          "phase1Date": {
+            "type": "string"
+          },
+          "phase2Date": {
+            "type": "string"
+          },
+          "phase3Date": {
+            "type": "string"
           }
         },
         "additionalProperties": false,
@@ -1067,6 +1103,15 @@
           },
           "received": {
             "type": "number"
+          },
+          "phase1Date": {
+            "type": "string"
+          },
+          "phase2Date": {
+            "type": "string"
+          },
+          "phase3Date": {
+            "type": "string"
           }
         },
         "additionalProperties": false,
@@ -1329,6 +1374,15 @@
                   },
                   "received": {
                     "type": "boolean"
+                  },
+                  "phase1Date": {
+                    "type": "boolean"
+                  },
+                  "phase2Date": {
+                    "type": "boolean"
+                  },
+                  "phase3Date": {
+                    "type": "boolean"
                   }
                 },
                 "additionalProperties": false
@@ -1343,7 +1397,10 @@
                     "population",
                     "firstDoses",
                     "secondDoses",
-                    "received"
+                    "received",
+                    "phase1Date",
+                    "phase2Date",
+                    "phase3Date"
                   ],
                   "example": "id"
                 },
@@ -1413,6 +1470,15 @@
                   },
                   "received": {
                     "type": "boolean"
+                  },
+                  "phase1Date": {
+                    "type": "boolean"
+                  },
+                  "phase2Date": {
+                    "type": "boolean"
+                  },
+                  "phase3Date": {
+                    "type": "boolean"
                   }
                 },
                 "additionalProperties": false
@@ -1427,7 +1493,10 @@
                     "population",
                     "firstDoses",
                     "secondDoses",
-                    "received"
+                    "received",
+                    "phase1Date",
+                    "phase2Date",
+                    "phase3Date"
                   ],
                   "example": "id"
                 },

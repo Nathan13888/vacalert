@@ -89,13 +89,13 @@
         </mat-step>
         <mat-step [completed]="true">
           <ng-template matStepLabel>Done</ng-template>
-          <p class="result">
+          <p class="result" *ngIf="phase">
             According to the official guidelines, you are in
             <span class="bold">Phase {{ phase }}</span> of the vaccine rollout.
             You should expect to get immunized
-            <span class="bold">between March and July 2021</span>. Click
-            <a class="underline" routerLink="/subscribe">here</a> to subscribe
-            to Vaccine alerts when it becomes available to you.
+            <span class="bold">{{ dateRange }}</span
+            >. Click <a class="underline" routerLink="/subscribe">here</a> to
+            subscribe to Vaccine alerts when it becomes available to you.
           </p>
           <ng-container
             *ngTemplateOutlet="navigation; context: { step: 'last' }"
@@ -146,6 +146,3 @@
     </div>
   </mat-card-content>
 </mat-card>
-<!-- <mat-card class="container" *ngIf="result">
-  <mat-card-content> </mat-card-content>
-</mat-card> -->

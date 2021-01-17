@@ -53,4 +53,39 @@ export class Formatter {
       return '';
     }
   }
+
+  static formatDateRange(startDate: string, endDate?: string): string {
+    let from: string;
+    let to: string;
+    let fromDate = new Date(startDate);
+    fromDate = new Date(
+      fromDate.getUTCFullYear(),
+      fromDate.getUTCMonth(),
+      fromDate.getUTCDate()
+    );
+
+    let toDate = endDate ? new Date(endDate) : undefined;
+
+    from = fromDate.toLocaleString('en', { month: 'long' });
+
+    if (!toDate || fromDate.getFullYear() !== toDate.getFullYear()) {
+      from += ' ' + fromDate.getFullYear();
+    }
+    if (toDate) {
+      toDate = new Date(
+        toDate.getUTCFullYear(),
+        toDate.getUTCMonth(),
+        toDate.getUTCDate()
+      );
+      to =
+        toDate.toLocaleString('en', { month: 'long' }) +
+        ' ' +
+        toDate.getFullYear();
+    }
+
+    if (from && to) return 'between ' + from + ' and ' + to;
+    else if (from) {
+      return 'from ' + from;
+    } else return '';
+  }
 }

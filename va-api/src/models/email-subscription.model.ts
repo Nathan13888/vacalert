@@ -10,6 +10,10 @@ export class EmailSubscription extends Entity {
   })
   email: string;
 
+  @property({
+    type: 'string',
+  })
+  userId: string;
 
   constructor(data?: Partial<EmailSubscription>) {
     super(data);
@@ -20,4 +24,5 @@ export interface EmailSubscriptionRelations {
   // describe navigational properties here
 }
 
-export type EmailSubscriptionWithRelations = EmailSubscription & EmailSubscriptionRelations;
+export type EmailSubscriptionWithRelations = EmailSubscription &
+  EmailSubscriptionRelations;

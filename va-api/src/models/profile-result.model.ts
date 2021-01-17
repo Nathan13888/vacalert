@@ -3,10 +3,10 @@ import {Model, model, property} from '@loopback/repository';
 @model()
 export class ProfileResult extends Model {
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
   })
-  stage: string;
+  phase: number;
 
   @property({
     type: 'string',
@@ -16,7 +16,7 @@ export class ProfileResult extends Model {
   @property({
     type: 'string',
   })
-  toDate: string;
+  toDate?: string;
 
   constructor(data?: Partial<ProfileResult>) {
     super(data);

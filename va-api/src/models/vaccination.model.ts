@@ -17,51 +17,38 @@ export class Vaccination extends Entity {
 
   @property({
     type: 'number',
-    scale: 0,
-    postgresql: {
-      dataType: 'integer',
-    },
   })
   population: number;
 
   @property({
     type: 'number',
-    scale: 0,
-    postgresql: {
-      dataType: 'integer',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: 0,
-      nullable: 'NO',
-    },
   })
   firstDoses: number;
 
   @property({
     type: 'number',
-    scale: 0,
-    postgresql: {
-      dataType: 'integer',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: 0,
-      nullable: 'NO',
-    },
   })
   secondDoses: number;
 
   @property({
     type: 'number',
-    scale: 0,
-    postgresql: {
-      dataType: 'integer',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: 0,
-      nullable: 'NO',
-    },
   })
   received: number;
+
+  @property({
+    type: 'string',
+  })
+  phase1Date: string;
+
+  @property({
+    type: 'string',
+  })
+  phase2Date: string;
+
+  @property({
+    type: 'string',
+  })
+  phase3Date: string;
 
   constructor(data?: Partial<Vaccination>) {
     super(data);

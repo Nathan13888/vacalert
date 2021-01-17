@@ -12,7 +12,7 @@
 
 
 export interface ProfileResult { 
-    stage: string;
+    phase: number;
     fromDate?: string;
     toDate?: string;
 }

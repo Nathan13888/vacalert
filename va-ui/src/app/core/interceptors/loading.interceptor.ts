@@ -2,7 +2,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -13,13 +13,6 @@ import { LoadingIndicatorService } from '../services/loading-indicator.service';
 export class LoadingIndicatorInterceptor implements HttpInterceptor {
   activeRequests = 0;
 
-  /**
-   * URLs for which the loading screen should be disabled if any
-   */
-  skippUrls = [
-    // '/authrefresh',
-  ];
-
   constructor(private loadingIndicatorService: LoadingIndicatorService) {}
 
   intercept(
@@ -27,13 +20,6 @@ export class LoadingIndicatorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let displayLoadingIndicator = true;
-
-    for (const skippUrl of this.skippUrls) {
-      if (new RegExp(skippUrl).test(request.url)) {
-        displayLoadingIndicator = false;
-        break;
-      }
-    }
 
     if (displayLoadingIndicator) {
       if (this.activeRequests === 0) {
