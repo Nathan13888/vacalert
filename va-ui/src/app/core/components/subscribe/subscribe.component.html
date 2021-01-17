@@ -1,0 +1,120 @@
+<div class="container">
+  <p class="mat-title" style="font-weight: bold">
+    Subscribe to Covid-19 Alerts
+  </p>
+
+  <div fxLayout="column" fxLayoutGap="10px">
+    <div>
+      <button
+        *ngIf="!alertSubscription.webEnabled"
+        mat-raised-button
+        color="primary"
+        (click)="this.subscribeBrowserNotifications()"
+      >
+        <mat-icon>message</mat-icon>
+        Opt in to Web Notifications!
+      </button>
+      <!-- <p>Device token: {{ displayToken }}</p> -->
+      <div *ngIf="alertSubscription.webEnabled">
+        You have subscribed to Web Notifications.
+        <a class="underline margin-left" (click)="onUnsubscribeWeb()"
+          >Unsubscribe</a
+        >
+      </div>
+    </div>
+
+    <mat-card *ngIf="!alertSubscription.emailEnabled">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">email</mat-icon>
+        <mat-card-title>Get the latest updates via e-mail</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="emailForm"
+          (submit)="subscribeEmailUpdates()"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-form-field floatLabel="never">
+            <mat-label>Enter your e-mail</mat-label>
+            <input
+              matNativeControl
+              type="email"
+              class="input"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="hasError(emailForm.controls.email, 'required')">
+              E-mail is required
+            </mat-error>
+            <mat-error *ngIf="hasError(emailForm.controls.email, 'email')">
+              E-mail is invalid
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" type="submit">
+              Subscribe
+            </button>
+          </div>
+        </form></mat-card-content
+      ></mat-card
+    >
+
+    <div *ngIf="alertSubscription.emailEnabled">
+      You have subscribed to E-mail alerts.
+      <a class="underline margin-left" (click)="onUnsubscribeEmail()"
+        >Unsubscribe</a
+      >
+    </div>
+
+    <mat-card *ngIf="!alertSubscription.smsEnabled">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">sms</mat-icon>
+        <mat-card-title
+          >Subscribe to SMS alerts (Powered by Vonage)</mat-card-title
+        >
+      </mat-card-header>
+
+      <mat-card-content>
+        <form
+          [formGroup]="smsForm"
+          (submit)="subscribeSMSUpdates()"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="10px"
+        >
+          <mat-form-field floatLabel="never">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matNativeControl
+              type="tel"
+              class="input"
+              formControlName="phoneNumber"
+              appPhoneInput
+              required
+            />
+            <mat-error
+              *ngIf="hasError(smsForm.controls.phoneNumber, 'required')"
+            >
+              Phone number is required
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" type="submit">
+              Subscribe
+            </button>
+          </div>
+        </form></mat-card-content
+      ></mat-card
+    >
+
+    <div *ngIf="alertSubscription.smsEnabled">
+      You have subscribed to SMS alerts.
+      <a class="underline margin-left" (click)="onUnsubscribeSMS()"
+        >Unsubscribe</a
+      >
+    </div>
+  </div>
+</div>

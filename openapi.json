@@ -1,0 +1,1445 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "va-api",
+    "version": "0.0.1",
+    "description": "va-api",
+    "contact": {}
+  },
+  "paths": {
+    "/assessment/result": {
+      "post": {
+        "x-controller-name": "AssessmentController",
+        "x-operation-name": "getResult",
+        "tags": [
+          "AssessmentController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResult"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProfile"
+              }
+            }
+          }
+        },
+        "operationId": "AssessmentController.getResult"
+      }
+    },
+    "/locations/count": {
+      "get": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "count",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Location model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Location.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Location>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "LocationController.count"
+      }
+    },
+    "/locations/{id}": {
+      "put": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Location PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Location"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "LocationController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Location PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "LocationController.updateById"
+      },
+      "get": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "findById",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Location model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "LocationController.findById"
+      },
+      "delete": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Location DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "LocationController.deleteById"
+      }
+    },
+    "/locations": {
+      "post": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "create",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Location model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewLocation"
+              }
+            }
+          }
+        },
+        "operationId": "LocationController.create"
+      },
+      "patch": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Location PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Location.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Location>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocationPartial"
+              }
+            }
+          }
+        },
+        "operationId": "LocationController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "LocationController",
+        "x-operation-name": "find",
+        "tags": [
+          "LocationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Location model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LocationWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Location.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "LocationController.find"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/subscription/browser": {
+      "post": {
+        "x-controller-name": "SubscriptionController",
+        "x-operation-name": "subscribeBrowserNotifications",
+        "tags": [
+          "SubscriptionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully subscribed"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BrowserSubscription"
+              }
+            }
+          }
+        },
+        "operationId": "SubscriptionController.subscribeBrowserNotifications"
+      }
+    },
+    "/subscription/email": {
+      "post": {
+        "x-controller-name": "SubscriptionController",
+        "x-operation-name": "subscribeEmail",
+        "tags": [
+          "SubscriptionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully subscribed"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailSubscription"
+              }
+            }
+          }
+        },
+        "operationId": "SubscriptionController.subscribeEmail"
+      }
+    },
+    "/subscription/sms": {
+      "post": {
+        "x-controller-name": "SubscriptionController",
+        "x-operation-name": "subscribeSMS",
+        "tags": [
+          "SubscriptionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully subscribed"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsSubscription"
+              }
+            }
+          }
+        },
+        "operationId": "SubscriptionController.subscribeSMS"
+      }
+    },
+    "/vaccinations/count": {
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "count",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Vaccination.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Vaccination>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.count"
+      }
+    },
+    "/vaccinations/{id}": {
+      "put": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Vaccination"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "VaccinationController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "VaccinationController.updateById"
+      },
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "findById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaccinationWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.findById"
+      },
+      "delete": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Vaccination DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "VaccinationController.deleteById"
+      }
+    },
+    "/vaccinations": {
+      "post": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "create",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewVaccination"
+              }
+            }
+          }
+        },
+        "operationId": "VaccinationController.create"
+      },
+      "patch": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Vaccination PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Vaccination.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Vaccination>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationPartial"
+              }
+            }
+          }
+        },
+        "operationId": "VaccinationController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "VaccinationController",
+        "x-operation-name": "find",
+        "tags": [
+          "VaccinationController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Vaccination model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VaccinationWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "VaccinationController.find"
+      }
+    },
+    "/vonage/sms/send": {
+      "post": {
+        "x-controller-name": "VonageController",
+        "x-operation-name": "smsSend",
+        "tags": [
+          "VonageController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully sent"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "operationId": "VonageController.smsSend"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ProfileResult": {
+        "title": "ProfileResult",
+        "type": "object",
+        "properties": {
+          "stage": {
+            "type": "string"
+          },
+          "fromDate": {
+            "type": "string"
+          },
+          "toDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "stage"
+        ],
+        "additionalProperties": false
+      },
+      "UserProfile": {
+        "title": "UserProfile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "homeCare": {
+            "type": "boolean"
+          },
+          "healthCare": {
+            "type": "boolean"
+          },
+          "frontline": {
+            "type": "boolean"
+          },
+          "indigenous": {
+            "type": "boolean"
+          },
+          "congregated": {
+            "type": "boolean"
+          },
+          "essential": {
+            "type": "boolean"
+          },
+          "pregnant": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "province",
+          "age"
+        ],
+        "additionalProperties": false
+      },
+      "Location": {
+        "title": "Location",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "phone",
+          "lat",
+          "lng",
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "NewLocation": {
+        "title": "NewLocation",
+        "type": "object",
+        "description": "(tsType: Omit<Location, 'id'>, schemaOptions: { title: 'NewLocation', exclude: [ 'id' ] })",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "phone",
+          "lat",
+          "lng",
+          "url"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Location, 'id'>"
+      },
+      "LocationWithRelations": {
+        "title": "LocationWithRelations",
+        "type": "object",
+        "description": "(tsType: LocationWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "phone",
+          "lat",
+          "lng",
+          "url"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "LocationWithRelations"
+      },
+      "LocationPartial": {
+        "title": "LocationPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Location>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Location>"
+      },
+      "EmailSubscription": {
+        "title": "EmailSubscription",
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "BrowserSubscription": {
+        "title": "BrowserSubscription",
+        "type": "object",
+        "properties": {
+          "deviceToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "deviceToken"
+        ],
+        "additionalProperties": false
+      },
+      "SmsSubscription": {
+        "title": "SmsSubscription",
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "phoneNumber"
+        ],
+        "additionalProperties": false
+      },
+      "Vaccination": {
+        "title": "Vaccination",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewVaccination": {
+        "title": "NewVaccination",
+        "type": "object",
+        "description": "(tsType: Omit<Vaccination, 'id'>, schemaOptions: { title: 'NewVaccination', exclude: [ 'id' ] })",
+        "properties": {
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Vaccination, 'id'>"
+      },
+      "VaccinationWithRelations": {
+        "title": "VaccinationWithRelations",
+        "type": "object",
+        "description": "(tsType: VaccinationWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "VaccinationWithRelations"
+      },
+      "VaccinationPartial": {
+        "title": "VaccinationPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Vaccination>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "province": {
+            "type": "string"
+          },
+          "population": {
+            "type": "number"
+          },
+          "firstDoses": {
+            "type": "number"
+          },
+          "secondDoses": {
+            "type": "number"
+          },
+          "received": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Vaccination>"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Location.Filter": {
+        "type": "object",
+        "title": "Location.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "address": {
+                    "type": "boolean"
+                  },
+                  "phone": {
+                    "type": "boolean"
+                  },
+                  "lat": {
+                    "type": "boolean"
+                  },
+                  "lng": {
+                    "type": "boolean"
+                  },
+                  "url": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "address",
+                    "phone",
+                    "lat",
+                    "lng",
+                    "url"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Location.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Location>"
+      },
+      "Location.Filter1": {
+        "type": "object",
+        "title": "Location.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Location.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "address": {
+                    "type": "boolean"
+                  },
+                  "phone": {
+                    "type": "boolean"
+                  },
+                  "lat": {
+                    "type": "boolean"
+                  },
+                  "lng": {
+                    "type": "boolean"
+                  },
+                  "url": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "name",
+                    "address",
+                    "phone",
+                    "lat",
+                    "lng",
+                    "url"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Location.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Location>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "Vaccination.Filter": {
+        "type": "object",
+        "title": "Vaccination.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "province": {
+                    "type": "boolean"
+                  },
+                  "population": {
+                    "type": "boolean"
+                  },
+                  "firstDoses": {
+                    "type": "boolean"
+                  },
+                  "secondDoses": {
+                    "type": "boolean"
+                  },
+                  "received": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "province",
+                    "population",
+                    "firstDoses",
+                    "secondDoses",
+                    "received"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Vaccination.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Vaccination>"
+      },
+      "Vaccination.Filter1": {
+        "type": "object",
+        "title": "Vaccination.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Vaccination.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "province": {
+                    "type": "boolean"
+                  },
+                  "population": {
+                    "type": "boolean"
+                  },
+                  "firstDoses": {
+                    "type": "boolean"
+                  },
+                  "secondDoses": {
+                    "type": "boolean"
+                  },
+                  "received": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "province",
+                    "population",
+                    "firstDoses",
+                    "secondDoses",
+                    "received"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Vaccination.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Vaccination>"
+      }
+    }
+  }
+}

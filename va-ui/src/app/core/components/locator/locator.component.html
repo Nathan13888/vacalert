@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="mat-title padding">
+    You are eligible to take the Covid-19 vaccine. Find a healthcare centre near
+    you to make an appointment.
+  </div>
+  <div class="container" *ngIf="locations" fxLayout="column" fxLayoutGap="5px">
+    <app-location-info *ngFor="let loc of locations" [location]="loc">
+      <div slot="trailer" class="margin-top">
+        <a class="underline" (click)="onClickAppointment(loc)">
+          I have made an appointment at this location.</a
+        >
+      </div>
+    </app-location-info>
+    <div class="margin-top mat-body">
+      <a class="underline" (click)="onClickAppointment()">
+        I have made an appointment at some other location.</a
+      >
+    </div>
+  </div>
+</div>

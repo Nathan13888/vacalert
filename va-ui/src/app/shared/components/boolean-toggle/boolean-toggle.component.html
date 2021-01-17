@@ -1,0 +1,20 @@
+<mat-button-toggle-group
+  #group="matButtonToggleGroup"
+  [value]="value"
+  (change)="onToggleGroupChange($event)"
+>
+  <mat-button-toggle
+    [value]="true"
+    [disableRipple]="false"
+    (click)="onClickButton(true)"
+  >
+    <div>Yes</div>
+  </mat-button-toggle>
+  <mat-button-toggle
+    [value]="false"
+    [disableRipple]="false"
+    (click)="onClickButton(false)"
+  >
+    <div>No</div>
+  </mat-button-toggle>
+</mat-button-toggle-group>

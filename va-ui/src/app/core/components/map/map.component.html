@@ -1,0 +1,50 @@
+<div class="container" [appPopover]="info" #popoverInfo="popover">
+  <div class="mat-h1">How many vaccines have been administered?</div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="map.viewBox"
+    class="map mat-elevation-z1"
+    [attr.aria-label]="map.label"
+  >
+    <path
+      *ngFor="let location of map.locations"
+      #path
+      [attr.name]="location.name"
+      [attr.id]="location.id"
+      [attr.d]="location.path"
+      class="map-location"
+      (click)="onClickLocation(location)"
+      [appHover]="popoverInfo"
+      (hover)="onHoverLocation(location, $event)"
+    ></path>
+    <circle
+      *ngFor="let label of labels"
+      [attr.cx]="label.x"
+      [attr.cy]="label.y - 5"
+      [attr.r]="30"
+      stroke="none"
+      fill="lightblue"
+      [appHover]="popoverInfo"
+      (hover)="onHoverLocation(label.location, $event)"
+    ></circle>
+    <text
+      *ngFor="let label of labels"
+      text-anchor="middle"
+      [attr.x]="label.x"
+      [attr.y]="label.y - 10"
+      fill="red"
+      [appHover]="popoverInfo"
+      (hover)="onHoverLocation(label.location, $event)"
+    >
+      {{ label.text }}
+      <tspan [attr.x]="label.x" [attr.y]="label.y + 12">
+        {{ label.location["data-percent"] }}
+      </tspan>
+    </text>
+  </svg>
+</div>
+
+<ng-template #info>
+  <app-map-popover *ngIf="selectedItem" class="popover" [item]="selectedItem">
+  </app-map-popover>
+</ng-template>

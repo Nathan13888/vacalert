@@ -1,0 +1,11 @@
+.label {
+  margin-right: 5px;
+  font-weight: bold;
+  padding-right: 5px;
+}
+
+.field {
+  min-width: 100px;
+  max-width: 250px;
+  word-wrap: break-word;
+}

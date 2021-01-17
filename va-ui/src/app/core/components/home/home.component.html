@@ -1,0 +1,55 @@
+<div class="home-container">
+  <swiper [config]="config">
+    <div
+      slot="container-start"
+      class="parallax-bg swiper-background"
+      data-swiper-parallax="-23%"
+    ></div>
+    <ng-template swiperSlide>
+      <div class="text" data-swiper-parallax="parallax">
+        <p>
+          Stay alert to the Covid-19 vaccine coming to you! Keep up-to-date on
+          changes to the rollout plan. Don't miss your chance to get vaccinated
+          as early as possible.
+        </p>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="text" data-swiper-parallax="parallax">
+        The first Covid-19 vaccine doses have been administered across Canada.
+        <span class="link" routerLink="/map">Learn more</span>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="text" data-swiper-parallax="parallax">
+        <p>
+          When will the vaccine be available to you? Find out when it’s your
+          turn here!
+        </p>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="text" data-swiper-parallax="parallax">
+        <p>
+          The Covid-19 vaccines approved by Health Canada are safe, effective
+          and will save lives.
+        </p>
+      </div>
+    </ng-template>
+
+    <ng-template swiperSlide>
+      <div class="text" data-swiper-parallax="parallax">
+        <p>
+          Keep your hands clean even with the vaccine! Vaccination doesn’t
+          guarantee permanent protection!
+        </p>
+      </div>
+    </ng-template>
+  </swiper>
+
+  <div fxLayoutAlign="center center">
+    <app-questionaire
+      (completed)="onCompletedQuestions($event)"
+    ></app-questionaire>
+  </div>
+</div>

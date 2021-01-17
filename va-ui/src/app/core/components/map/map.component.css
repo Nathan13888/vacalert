@@ -1,0 +1,25 @@
+.container {
+  max-width: 100%;
+}
+
+svg.map {
+  fill: #a1d99b;
+  cursor: pointer;
+  max-width: 800px;
+}
+
+.map-location.selected {
+  fill: rgb(201, 224, 240);
+}
+
+:host ::ng-deep svg {
+  stroke: #666;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.popover {
+  z-index: 9001;
+  background-color: #ccc;
+}

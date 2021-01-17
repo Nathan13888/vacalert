@@ -1,0 +1,151 @@
+<p>
+  To see when you may take the Covid-19 vaccine, please answer a few questions.
+</p>
+<mat-card class="container">
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-horizontal-stepper
+        [linear]="true"
+        #stepper
+        (selectionChange)="onSelectionChange($event)"
+      >
+        <mat-step [stepControl]="form.controls.province">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div>Which province do you live in?</div>
+            <mat-form-field style="width: 220px">
+              <select
+                matNativeControl
+                [formControl]="form.controls.province"
+                required
+              >
+                <option>Select a Province</option>
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland and Labrador</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NU">Nunavut</option>
+                <option value="YT">Yukon</option>
+              </select>
+            </mat-form-field>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              navigation;
+              context: {
+                step: 'first'
+              }
+            "
+          ></ng-container>
+        </mat-step>
+        <mat-step [stepControl]="form.controls.age">
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div>What is your age?</div>
+            <mat-form-field class="age-field">
+              <input
+                #input
+                matNativeControl
+                required
+                type="number"
+                maxlength="3"
+                autocomplete="off"
+                [formControl]="form.controls.age"
+                (input)="input.value = input.value.slice(0, input.maxLength)"
+                (keydown.enter)="goForward(stepper)"
+              />
+            </mat-form-field>
+          </div>
+          <ng-container *ngTemplateOutlet="navigation"></ng-container>
+        </mat-step>
+        <mat-step>
+          <div *ngFor="let q of closedQuestions; let i = index">
+            <div class="spacing"></div>
+            <mat-divider *ngIf="i > 0" inset="true"></mat-divider>
+            <div
+              class="spacing"
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <div>{{ q.text }}</div>
+              <img
+                *ngIf="q.image"
+                class="image"
+                [src]="'/assets/images/' + q.image"
+              />
+              <div class="spacer"></div>
+              <app-boolean-toggle
+                [formControl]="q.control"
+              ></app-boolean-toggle>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="navigation"></ng-container>
+        </mat-step>
+        <mat-step [completed]="true">
+          <ng-template matStepLabel>Done</ng-template>
+          <p class="result">
+            According to the official guidelines, you are in
+            <span class="bold">Phase {{ phase }}</span> of the vaccine rollout.
+            You should expect to get immunized
+            <span class="bold">between March and July 2021</span>. Click
+            <a class="underline" routerLink="/subscribe">here</a> to subscribe
+            to Vaccine alerts when it becomes available to you.
+          </p>
+          <ng-container
+            *ngTemplateOutlet="navigation; context: { step: 'last' }"
+          ></ng-container>
+        </mat-step>
+
+        <ng-template #navigation let-step="step" let-disableNext="disableNext">
+          <div style="margin-top: 5px">
+            <mat-divider inset="true"></mat-divider>
+            <div fxLayout="row" class="button-row" style="margin-top: 5px">
+              <button
+                *ngIf="step !== 'first'"
+                mat-stroked-button
+                type="button"
+                matStepperPrevious
+              >
+                <mat-icon>navigate_before</mat-icon>Back
+              </button>
+              <div class="spacer"></div>
+              <button
+                *ngIf="step !== 'last'"
+                mat-stroked-button
+                type="button"
+                [disabled]="disableNext"
+                (click)="goForward(stepper)"
+              >
+                Next
+                <mat-icon>navigate_next</mat-icon>
+              </button>
+              <button
+                *ngIf="step === 'last'"
+                mat-stroked-button
+                type="button"
+                (click)="stepper.reset()"
+              >
+                <mat-icon>refresh</mat-icon>Start Over
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </mat-horizontal-stepper>
+    </form>
+    <div style="padding: 5px">
+      <div *ngIf="form.controls.age.hasError('underage')">
+        Unfortunately Covid-19 Vaccines have not been approved for children
+        under 16.
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<!-- <mat-card class="container" *ngIf="result">
+  <mat-card-content> </mat-card-content>
+</mat-card> -->

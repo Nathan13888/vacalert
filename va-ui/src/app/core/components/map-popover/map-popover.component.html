@@ -1,0 +1,22 @@
+<mat-card class="container" *ngIf="item">
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutGap="5px">
+      <div fxLayout="row" fxLayoutAlign="start start">
+        <div class="label">Province:</div>
+        <div class="field">{{ provinceName }}</div>
+      </div>
+      <div fxLayout="row">
+        <div class="label">Doses Administered:</div>
+        <div class="field">
+          {{ formatter.formatNumber(totalDoses) }}
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div class="label">% of Population Vaccinated:</div>
+        <div class="field">
+          {{ formatter.formatPercent(percentOfPopulation) }}
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

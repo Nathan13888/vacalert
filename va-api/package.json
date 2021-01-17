@@ -1,0 +1,91 @@
+{
+  "name": "va-api",
+  "version": "0.0.1",
+  "description": "va-api",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t va-api .",
+    "docker:run": "docker run -p 3000:3000 -d --name va va-api:latest",
+    "docker:kill": "docker kill va",
+    "docker:logs": "docker logs va",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec ../openapi.json",
+    "rebuild": "npm run clean && npm run build",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "test-db": "node ./dist/__tests__/dev/test-db",
+    "build-test-db": "npm run build && npm run test-db",
+    "load-db": "node ./dist/__tests__/dev/load-db",
+    "build-load-db": "npm run build && npm run load-db",
+    "watch": "lb-tsc --outDir dist --watch",
+    "start-dev": "nodemon --watch ./dist --inspect ./dist/index.js",
+    "dev": "npm run build && concurrently \"npm run watch\" \"npm run start-dev\"",
+    "getapi": "node ./dist/__tests__/dev/getapi",
+    "prod": "npm run clean && lb-tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^3.1.2",
+    "@loopback/core": "^2.13.1",
+    "@loopback/repository": "^3.3.0",
+    "@loopback/rest": "^9.1.1",
+    "@loopback/rest-explorer": "^3.0.5",
+    "@loopback/service-proxy": "^3.0.5",
+    "@vonage/server-sdk": "^2.10.5",
+    "firebase-admin": "^9.4.2",
+    "graceful-fs": "^4.2.4",
+    "loopback-connector-postgresql": "^5.3.0",
+    "nanoid": "^3.1.20",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^6.2.8",
+    "@loopback/eslint-config": "^10.0.4",
+    "@loopback/testlab": "^3.2.10",
+    "@types/graceful-fs": "^4.1.4",
+    "@types/nanoid": "^2.1.0",
+    "@types/node": "^10.17.48",
+    "concurrently": "^5.3.0",
+    "copyfiles": "^2.4.1",
+    "csv-parser": "^3.0.0",
+    "del-cli": "^3.0.1",
+    "eslint": "^7.15.0",
+    "trash-cli": "^4.0.0",
+    "typescript": "~4.1.2"
+  }
+}

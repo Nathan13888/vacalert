@@ -1,0 +1,79 @@
+.container {
+  max-width: 700px;
+}
+.age-field {
+  width: 80px;
+}
+
+:host ::ng-deep .mat-horizontal-stepper-header-container {
+  display: none;
+}
+
+:host ::ng-deep .mat-card-content {
+  font-size: 1.1em;
+}
+
+:host ::ng-deep .mat-horizontal-content-container {
+  margin-top: 10px;
+}
+
+:host ::ng-deep .illustration .mat-icon {
+  width: 128px;
+  height: 128px;
+}
+
+:host ::ng-deep .illustration .mat-icon svg {
+  width: 128px;
+  height: 128px;
+  transform: scale(0.5);
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  padding: 2px;
+  border-top: 0;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  position: unset;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+:host ::ng-deep .mat-button-toggle-label-content {
+  font-weight: bold !important;
+  font-size: 0.9em !important;
+  line-height: 32px !important;
+}
+
+:host ::ng-deep .mat-button-toggle-checked {
+  background-color: #3949ab;
+  font-weight: bold;
+}
+
+:host ::ng-deep .mat-button-toggle-checked .mat-button-toggle-label-content {
+  color: white;
+}
+
+.image {
+  transform: scale(0.5);
+}
+
+.spacing {
+  margin-top: 8px;
+}
+
+.result {
+  font-size: 1.25em;
+}

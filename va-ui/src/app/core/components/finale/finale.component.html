@@ -1,0 +1,28 @@
+<div class="container">
+  <app-celebrate></app-celebrate>
+
+  <mat-card *ngIf="done === false">
+    <mat-card-content>
+      <div class="mat-h2">
+        Have you taken the second dose of your Covid-19 vaccine?
+      </div>
+      <div class="button-row">
+        <button mat-raised-button color="primary" (click)="onAnswer(true)">
+          Yes
+        </button>
+        <button mat-raised-button color="primary" (click)="onAnswer(false)">
+          No
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="done === true">
+    <mat-card-content>
+      <div class="mat-h2">
+        Congratulations! You are among the <span class="bold">1.41%</span> of
+        people in Canada who have been vaccinated against Covid-19.
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

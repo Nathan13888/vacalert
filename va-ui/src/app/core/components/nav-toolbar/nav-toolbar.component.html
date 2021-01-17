@@ -1,0 +1,123 @@
+<mat-toolbar
+  class="toolbar-fixed-height toolbar"
+  fxLayoutAlign="start center"
+  fxLayoutGap="10px"
+  color="primary"
+  *ngIf="layoutService.handset$ | async as handset"
+>
+  <ng-container *ngIf="layoutService.small$ | async as small">
+    <button
+      *ngIf="enableDrawerToggle"
+      mat-icon-button
+      (click)="onSideNavToggle()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-divider
+      *ngIf="enableDrawerToggle"
+      class="toolbar-divider"
+      [vertical]="true"
+    ></mat-divider>
+
+    <ng-container *ngIf="enableBack">
+      <button
+        mat-icon-button
+        *ngIf="(routerLocationService.canGoBack$ | async).value"
+        [matTooltip]="res.Back"
+        (click)="onBack()"
+      >
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </ng-container>
+
+    <button
+      mat-icon-button
+      *ngIf="enableForward && !handset.matches"
+      [matTooltip]="res.Forward"
+      (click)="onForward()"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+    <a
+      mat-icon-button
+      routerLink="/"
+      [matTooltip]="res.Home"
+      *ngIf="enableHome"
+    >
+      <mat-icon>home</mat-icon>
+    </a>
+
+    <!-- <ng-container *ngIf="handset.matches">
+      <ng-container *ngTemplateOutlet="title"></ng-container>
+    </ng-container> -->
+
+    <ng-container *ngTemplateOutlet="title"></ng-container>
+
+    <ng-template #title>
+      <div class="app-img"></div>
+
+      <div *ngIf="heading" class="heading" [matTooltip]="heading">
+        {{ heading }}
+      </div>
+    </ng-template>
+
+    <div
+      [appEllipsis]
+      *ngIf="subHeading && !handset.matches"
+      class="sub-heading"
+      [matTooltip]="heading"
+      #el="ellipsis"
+      [matTooltipDisabled]="!el.outOfBound"
+    >
+      {{ subHeading }}
+    </div>
+
+    <span class="spacer"> </span>
+
+    <a
+      *ngIf="enableSubscribe"
+      mat-icon-button
+      routerLink="/subscribe"
+      matTooltip="Subscribe"
+    >
+      <mat-icon>subscriptions</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableMap && !handset.matches"
+      mat-icon-button
+      routerLink="/map"
+      matTooltip="Map"
+    >
+      <mat-icon>map</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableLocator && !handset.matches"
+      mat-icon-button
+      routerLink="/locator"
+      matTooltip="Locator"
+    >
+      <mat-icon>location_on</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableAppointment && !handset.matches"
+      mat-icon-button
+      routerLink="/appointment"
+      matTooltip="Appointment"
+    >
+      <mat-icon>schedule</mat-icon>
+    </a>
+
+    <a
+      *ngIf="enableSettings"
+      mat-icon-button
+      routerLink="/settings"
+      matTooltip="Settings"
+    >
+      <mat-icon>settings_applications</mat-icon>
+    </a>
+  </ng-container>
+</mat-toolbar>
