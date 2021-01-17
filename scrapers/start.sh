@@ -22,7 +22,7 @@ curl --request PUT --upload-file out.json '$UPLOAD_URL'
 # step 3 - get status
 curl --location --request GET 'https://api2.dropbase.io/v1/pipeline/run_pipeline' \
 --data-raw '{
-    "job_id":"$TOKEN"
+    "job_id":"$JOB_ID"
 }'
 
 
